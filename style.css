@@ -180,3 +180,22 @@ svg.actions {
     border-radius: var(--smallrad);
     margin: 1rem 0;
 }
+
+/* checklist */
+#checklistpage {
+    margin: 1.5rem 0;
+}
+#checklistpage ul {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    padding-left: 0;
+    list-style: none;
+}
+#checklistpage li {
+    display: flex;
+    justify-content: space-between;
+    border-radius: var(--mediumrad);
+    padding: var(--mediumpad);
+    box-shadow: var(--shadow);
+}
