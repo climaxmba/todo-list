@@ -18,7 +18,7 @@ html {
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     display: grid;
-    grid-template: 150% auto / 75vw 1fr;
+    grid-template: 130vh auto / 75vw 1fr;
     gap: 1em;
     margin: 0;
     padding-left: 1rem;
@@ -45,6 +45,9 @@ header h1 {
 #newbtn:active {
     box-shadow: none;
 }
+#main > div:not(.active-page) {
+    display: none;
+}
 #sidebar {
     background: var(--bgdark);
     color: var(--fglight);
@@ -68,10 +71,10 @@ header h1 {
 }
 
 /* home */
-#home h2:first-child {
+#homepage h2:first-child {
     color: var(--bgdark);
 }
-#home ul {
+#homepage ul {
     list-style: none;
     padding-left: 0;
     display: flex;
@@ -137,4 +140,16 @@ svg.actions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 8px;
+}
+
+/* projects */
+#projectspage {
+    margin: 1.2rem 0;
+}
+#projectspage ul {
+    padding-left: 0;
+    list-style: none;
+}
+#projectspage .flex-list-item {
+    border-radius: 0;
 }
