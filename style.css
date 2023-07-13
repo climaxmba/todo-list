@@ -153,3 +153,30 @@ svg.actions {
 #projectspage .flex-list-item {
     border-radius: 0;
 }
+
+/* notes */
+#notes-contr {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin: 1.5rem 0;
+}
+#notes-contr > div {
+    box-shadow: var(--shadow);
+    padding: var(--mediumpad);
+    border-radius: var(--mediumrad);
+}
+.note-title-contr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.note-title {
+    font-weight: bold;
+}
+.notecontent {
+    padding: var(--mediumpad);
+    border: 1px solid;
+    border-radius: var(--smallrad);
+    margin: 1rem 0;
+}
