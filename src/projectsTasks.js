@@ -1,3 +1,5 @@
+// import week handler from datefns here
+
 class Project {
   constructor(title, tasks) {
     this.title = title;
@@ -19,6 +21,24 @@ class Project {
   }
   removeTask(index) {
     this.tasks.splice(index, 1);
+  }
+  getTodaysTasks() {
+    // const todaysTask = [], todaysDate = new Date();
+    // this.tasks.forEach(task => {
+    //   if (task.dueDate === todaysDate) {
+    //     todaysTask.push(task);
+    //   }
+    // });
+    // return todaysTask;
+  }
+  getThisWeeksTasks() {
+    // const thisWeeksTask = [], thisWeek = 'getWeekhere';
+    // this.tasks.forEach(task => {
+    //   if ('getWeeksTaskhere'=== todaysDate) {
+    //     thisWeeksTask.push(task);
+    //   }
+    // });
+    // return thisWeeksTask;
   }
 }
 
