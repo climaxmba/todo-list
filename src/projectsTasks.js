@@ -1,4 +1,4 @@
-// import week handler from datefns here
+import {isThisWeek, isToday} from "date-fns";
 
 class Project {
   constructor(title, tasks) {
@@ -14,7 +14,7 @@ class Project {
     };
   }
   get tasks() {
-    return tasks;
+    return this.tasks.sort((a, b) => a.dueDate - b.dueDate);
   }
   addTask(task) {
     this.tasks.push(task);
@@ -23,22 +23,20 @@ class Project {
     this.tasks.splice(index, 1);
   }
   getTodaysTasks() {
-    // const todaysTask = [], todaysDate = new Date();
-    // this.tasks.forEach(task => {
-    //   if (task.dueDate === todaysDate) {
-    //     todaysTask.push(task);
-    //   }
-    // });
-    // return todaysTask;
+    const todaysTask = [];
+    this.tasks.forEach(task => {
+      if (isToday(task.dueDate)) todaysTask.push(task);
+    });
+    return todaysTask;
   }
   getThisWeeksTasks() {
-    // const thisWeeksTask = [], thisWeek = 'getWeekhere';
-    // this.tasks.forEach(task => {
-    //   if ('getWeeksTaskhere'=== todaysDate) {
-    //     thisWeeksTask.push(task);
-    //   }
-    // });
-    // return thisWeeksTask;
+    const thisWeeksTask = [];
+    this.tasks.forEach(task => {
+      if (isThisWeek(task.dueDate)) {
+        thisWeeksTask.push(task);
+      }
+    });
+    return thisWeeksTask;
   }
 }
 
@@ -59,6 +57,7 @@ class Note {
     this.title = title;
     this.note = note;
   }
+  // Manual
   static get default() {
     return { title: "How to use this TodoList", note: "" };
   }
