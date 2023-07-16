@@ -20,8 +20,7 @@ const projectsHandler = (function () {
     addNote(new Note(Note.default.title, Note.default.note));
     addCheckList(
       new CheckList(
-        CheckList.default.title,
-        CheckList.default.description
+        CheckList.default.listTxt
       )
     );
   }

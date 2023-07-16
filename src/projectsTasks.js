@@ -64,12 +64,11 @@ class Note {
 }
 
 class CheckList {
-  constructor(title, description) {
-    this.title = title;
-    this.description = description;
+  constructor(listTxt) {
+    this.listTxt = listTxt;
   }
   static get default() {
-    return { title: "Read", description: "Read 'How to use this TodoList'" };
+    return { listTxt: "Read 'How to use this TodoList'" };
   }
 }
 
