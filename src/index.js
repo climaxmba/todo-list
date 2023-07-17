@@ -1,5 +1,6 @@
 import pubSub from "./pubSub.js";
 import { Project, Task, Note, CheckList } from "./projectsTasks.js";
+import { tabs, swithTab } from "./display.js";
 
 const projectsHandler = (function () {
   let projects = [],
@@ -50,3 +51,9 @@ const projectsHandler = (function () {
     checkLists.splice(index, 1);
   }
 })();
+
+const displayController = (function() {
+  function addEventsToStaticElements() {
+    tabs.forEach((elem) => elem.addEventListener("click", swithTab));
+  }
+})()

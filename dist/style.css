@@ -62,8 +62,11 @@ header h1 {
     flex-direction: column;
     gap: 16px;
 }
-#sidebar li {
+.tabs {
     cursor: pointer;
+}
+.tabs.active {
+    font-weight: bold;
 }
 #footer {
     padding: var(--largepad);
@@ -71,10 +74,10 @@ header h1 {
 }
 
 /* home */
-#homepage h2:first-child {
+#home-page h2:first-child {
     color: var(--bgdark);
 }
-#homepage ul {
+#home-page ul {
     list-style: none;
     padding-left: 0;
     display: flex;
@@ -143,14 +146,14 @@ svg.actions {
 }
 
 /* projects */
-#projectspage {
+#projects-page {
     margin: 1.2rem 0;
 }
-#projectspage ul {
+#projects-page ul {
     padding-left: 0;
     list-style: none;
 }
-#projectspage .flex-list-item {
+#projects-page .flex-list-item {
     border-radius: 0;
 }
 
@@ -182,17 +185,17 @@ svg.actions {
 }
 
 /* checklist */
-#checklistpage {
+#checklist-page {
     margin: 1.5rem 0;
 }
-#checklistpage ul {
+#checklist-page ul {
     display: flex;
     gap: 8px;
     flex-direction: column;
     padding-left: 0;
     list-style: none;
 }
-#checklistpage li {
+#checklist-page li {
     display: flex;
     justify-content: space-between;
     border-radius: var(--mediumrad);
