@@ -15,8 +15,8 @@
             <!-- Replace with hamburger menu -->
             <span title="Menu">≡</span>
         </header>
-        <button id="newbtn">New Project</button>
-        <div id="homepage">
+        <button id="newbtn" data-dialogue="project">New Project</button>
+        <div id="home-page" class="active-page">
             <div id="today-contr">
                 <h2>Today</h2>
                 <div class="projects-contr">
@@ -94,7 +94,7 @@
 
         </div>
 
-        <div id="projectspage">
+        <div id="projects-page">
             <div class="projects-contr">
                 <div>
                     <div class="project-name-contr">
@@ -203,7 +203,7 @@
             
         </div>
 
-        <div id="notespage">
+        <div id="notes-page">
             <div id="notes-contr">
                 <div>
                     <div class="note-title-contr">
@@ -240,8 +240,8 @@
             </div>
         </div>
 
-        <div id="checklistpage" class="active-page">
-            <ul id="checklistpage-contr">
+        <div id="checklist-page">
+            <ul id="checklist-page-contr">
                 <li>
                     <span>
                         <input type="checkbox" id="list1">
@@ -278,10 +278,10 @@
 
     <div id="sidebar">
         <ul>
-            <li>Home</li>
-            <li>Projects</li>
-            <li>Notes</li>
-            <li>Checklists</li>
+            <li class="tabs" data-target-value="home">Home</li>
+            <li class="tabs" data-target-value="projects">Projects</li>
+            <li class="tabs" data-target-value="notes">Notes</li>
+            <li class="active tabs" data-target-value="checklists">Checklists</li>
         </ul>
     </div>
 
