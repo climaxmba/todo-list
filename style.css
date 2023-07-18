@@ -202,3 +202,7 @@ svg.actions {
     padding: var(--mediumpad);
     box-shadow: var(--shadow);
 }
+input.actions {
+    cursor: pointer;
+    /* custom input styles */
+}
