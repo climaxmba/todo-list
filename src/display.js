@@ -10,29 +10,35 @@ function swithTab(e) {
   // Do nothing if user clicks an active tab
   if (e.target.classList.contains("active")) return;
 
-  // Remove the class, 'active'
+  // Remove the class, 'active-page' and 'active'
   pages.forEach((page) => {
-    if (page.classList.contains("active")) {
-      page.classList.remove("active");
+    if (page.classList.contains("active-page")) {
+      page.classList.remove("active-page");
     }
   });
+  tabs.forEach(tab => {
+    if (tab.classList.contains('active')) {
+      tab.classList.remove('active');
+    }
+  })
 
-  // Add the class, 'active' & change createBtn text
+  // Add the class, 'active-page' & 'active'and change createBtn text
+  e.target.classList.add('active');
   switch (e.target.getAttribute("data-target-value")) {
     case "home":
-      homePage.classList.add("active");
+      homePage.classList.add("active-page");
       createBtn.textContent = "New Project";
       return;
     case "projects":
-      projectsPage.classList.add("active");
+      projectsPage.classList.add("active-page");
       createBtn.textContent = "New Project";
       return;
     case "notes":
-      notesPage.classList.add("active");
+      notesPage.classList.add("active-page");
       createBtn.textContent = "New Note";
       return;
     case "checklists":
-      checkListPage.classList.add("active");
+      checkListPage.classList.add("active-page");
       createBtn.textContent = "New Item";
       return;
   }
