@@ -7,24 +7,24 @@ const projectsHandler = (function () {
     notes = [],
     checkLists = [];
 
-  // initDefaults(true);
+  initDefaults(true);
 
-  // function initDefaults(reset) {
-  //   if (reset) {
-  //     projects = [];
-  //     notes = [];
-  //     checkLists = [];
-  //   }
-  //   addProject(
-  //     new Project(Project.default.title, Project.default.task)
-  //   );
-  //   addNote(new Note(Note.default.title, Note.default.note));
-  //   addCheckList(
-  //     new CheckList(
-  //       CheckList.default.listTxt
-  //     )
-  //   );
-  // }
+  function initDefaults(reset) {
+    if (reset) {
+      projects = [];
+      notes = [];
+      checkLists = [];
+    }
+    addProject(
+      new Project(Project.default.title, Project.default.task)
+    );
+    addNote(new Note(Note.default.title, Note.default.note));
+    addCheckList(
+      new CheckList(
+        CheckList.default.listTxt
+      )
+    );
+  }
 
   function addProject(project) {
     projects.push(project);

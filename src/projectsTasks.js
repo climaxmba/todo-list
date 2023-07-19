@@ -13,7 +13,7 @@ class Project {
       ],
     };
   }
-  get tasks() {
+  get sortedTasks() {
     return this.tasks.sort((a, b) => a.dueDate - b.dueDate);
   }
   addTask(task) {
