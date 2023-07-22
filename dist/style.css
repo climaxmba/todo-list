@@ -242,7 +242,10 @@ input.actions {
 #close-modal {
     cursor: pointer;
 }
-#modal-content form {
+#modal-content form:not(.active) {
+    display: none;
+}
+#modal-content form.active {
     border: none;
     display: flex;
     gap: 1rem;
@@ -253,7 +256,8 @@ input.actions {
     flex-direction: column;
     gap: 0.1rem;
 }
-#modal-content input {
+#modal-content input,
+#modal-content textarea {
     cursor: pointer;
     padding: var(--smallpad) var(--mediumpad);
     margin: 0 0.2rem;
@@ -261,13 +265,19 @@ input.actions {
     border-bottom: 1px solid;
     letter-spacing: 1px;
 }
+#modal-content textarea {
+    border: 1px solid;
+    border-radius: var(--smallrad);
+}
 #modal-content input:active,
-#modal-content input:focus {
+#modal-content textarea:active,
+#modal-content input:focus,
+#modal-content textarea:focus {
     outline: none;
 }
 form button {
     cursor: pointer;
-    padding: var(--mediumpad);
+    padding: calc(var(--mediumpad) + 3px);
     border-radius: var(--mediumrad);
     border: none;
     color: var(--fglight);

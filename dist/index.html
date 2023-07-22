@@ -281,10 +281,21 @@
                     <span id="modal-title">Modal title</span><span title="Close" id="close-modal">⨉</span>
                 </div>
                 <div id="modal-content">
-                    <form data-action-type="add-project">
+                    <form data-action-type="new-project">
                         <div class="field">
-                            <label for="project-title">Project Title</label>
+                            <label for="project-title">Title</label>
                             <input id="project-title" name="title" type="text" maxlength="40" required>
+                        </div>
+                        <button type="submit">Save</button>
+                    </form>
+                    <form class="active" data-action-type="new-note">
+                        <div class="field">
+                            <label for="note-title">Title</label>
+                            <input id="note-title" name="title" type="text" maxlength="40" required>
+                        </div>
+                        <div class="field">
+                            <label for="note-content">Note</label>
+                            <textarea name="content" id="note-content"></textarea>
                         </div>
                         <button type="submit">Save</button>
                     </form>
