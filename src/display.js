@@ -4,7 +4,8 @@ const homePage = document.getElementById("home-page"),
   projectsPage = document.getElementById("projects-page"),
   notesPage = document.getElementById("notes-page"),
   checkListPage = document.getElementById("checklist-page"),
-  pages = [homePage, projectsPage, notesPage, checkListPage];
+  pages = [homePage, projectsPage, notesPage, checkListPage],
+  modal = document.getElementById('modal');
 
 function swithTab(e) {
   // Do nothing if user clicks an active tab
@@ -45,13 +46,13 @@ function swithTab(e) {
 }
 
 function invokeAction(e) {
-  if (e.target !== e.currentTarget) {
-    // Move up to <svg> if target element is <path>
-    const elem =
-      e.target.tagName.toLowerCase() === "path"
-        ? e.target.parentElement
-        : e.target;
+  // Move up to <svg> if target element is <path>
+  const elem =
+    e.target.tagName.toLowerCase() === "path"
+      ? e.target.parentElement
+      : e.target;
 
+  if (e.target !== e.currentTarget) {
     // UI icons
     if (elem.classList.contains("actions")) {
       // <svg.actions>
@@ -74,15 +75,26 @@ function invokeAction(e) {
       const index = elem.parentElement.getAttribute("data-project");
       const action = "view-project";
       openDialogue({ action, index });
+    } else if (elem.id === 'close-modal') {
+      closeModal();
     }
+  } else if (elem === createBtn) {
+    openDialogue();
+  } else if (elem === modal) {
+    closeModal();
   }
 
   e.stopPropagation();
 }
 
-function openDialogue(dialogue){
-  // Open dialogue
-    return;
+function openDialogue(dialogue) {
+  openModal();
+}
+function openModal() {
+  modal.classList.add('active');
+}
+function closeModal() {
+  modal.classList.remove('active');
 }
 
-export { tabs, swithTab, invokeAction };
+export { tabs, createBtn, modal, swithTab, invokeAction };
