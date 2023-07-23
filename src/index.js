@@ -1,6 +1,6 @@
 import pubSub from "./pubSub.js";
 import { Project, Task, Note, CheckList } from "./projectsTasks.js";
-import { tabs, createBtn, swithTab, modal, invokeAction } from "./display.js";
+import { addEventsToStaticElements } from "./display.js";
 
 const projectsHandler = (function () {
   let projects = [],
@@ -57,11 +57,5 @@ const displayController = (function() {
   
   function init() {
     addEventsToStaticElements();
-  }
-
-  function addEventsToStaticElements() {
-    tabs.forEach((elem) => elem.addEventListener("click", swithTab));
-    createBtn.addEventListener('click', invokeAction);
-    modal.addEventListener('click', invokeAction);
   }
 })()

@@ -31,6 +31,13 @@ const html = {
   },
 };
 
+function addEventsToStaticElements() {
+  tabs.forEach((elem) => elem.addEventListener("click", swithTab));
+  createBtn.addEventListener('click', invokeAction);
+  modal.addEventListener('click', invokeAction);
+  projectsPage.addEventListener('click', invokeAction);
+}
+
 function swithTab(e) {
   // Do nothing if user clicks an active tab
   if (e.target.classList.contains("active")) return;
@@ -89,9 +96,7 @@ function invokeAction(e) {
       // <svg.actions>
       const action = elem.getAttribute("data-action-type");
       if (action.includes("-task")) {
-        const pindex = parseInt(
-          elem.parentElement.getAttribute("data-project")
-        );
+        const pindex = parseInt(elem.parentElement.getAttribute("data-project"));
         const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
         openDialogue({ action, pindex, tindex });
       } else if (action.includes("-project")) {
@@ -122,7 +127,7 @@ function invokeAction(e) {
 function openDialogue(dialogue) {
   if (dialogue.action) {
     if (dialogue.action.includes('new-')) {
-      modalContent.innerHTML = html.modalForms[dialogue.action];
+      modalContent.innerHTML = html.modalForms[dialogue.action] || '';
     }
   }
   openModal();
@@ -134,4 +139,4 @@ function closeModal() {
   modal.classList.remove("active");
 }
 
-export { tabs, createBtn, modal, swithTab, invokeAction };
+export { addEventsToStaticElements };
