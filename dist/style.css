@@ -242,10 +242,7 @@ input.actions {
 #close-modal {
     cursor: pointer;
 }
-#modal-content form:not(.active) {
-    display: none;
-}
-#modal-content form.active {
+#modal-content form {
     border: none;
     display: flex;
     gap: 1rem;
