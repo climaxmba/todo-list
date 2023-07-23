@@ -32,6 +32,18 @@ header {
 header h1 {
     margin: 0;
 }
+button {
+    cursor: pointer;
+    padding: calc(var(--mediumpad) + 3px);
+    border-radius: var(--mediumrad);
+    border: none;
+    color: var(--fglight);
+    background-color: var(--bgdark);
+}
+button:active {
+    color: var(--bgdark);
+    background-color: transparent;
+}
 #newbtn {
     padding: 0.5rem 1.5rem;
     border-radius: var(--largerad);
@@ -97,6 +109,8 @@ header h1 {
     border-radius: var(--mediumrad);
     padding: var(--mediumpad);
     box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
 }
 .project-name-contr {
     display: flex;
@@ -271,16 +285,4 @@ input.actions {
 #modal-content input:focus,
 #modal-content textarea:focus {
     outline: none;
-}
-form button {
-    cursor: pointer;
-    padding: calc(var(--mediumpad) + 3px);
-    border-radius: var(--mediumrad);
-    border: none;
-    color: var(--fglight);
-    background-color: var(--bgdark);
-}
-form button:active {
-    color: var(--bgdark);
-    background-color: transparent;
 }
