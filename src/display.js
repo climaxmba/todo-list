@@ -49,28 +49,31 @@ function swithTab(e) {
 
   // Add the class, 'active-page' & 'active'and change createBtn text
   e.target.classList.add('active');
-  switch (e.target.getAttribute("data-target-value")) {
+  const target = e.target.getAttribute("data-target-value");
+  switch (target) {
     case "home":
       homePage.classList.add("active-page");
       createBtn.textContent = "New Project";
       createBtn.setAttribute("data-dialogue", "project");
-      return;
+      break;
     case "projects":
       projectsPage.classList.add("active-page");
       createBtn.textContent = "New Project";
       createBtn.setAttribute("data-dialogue", "project");
-      return;
+      break;
     case "notes":
       notesPage.classList.add("active-page");
       createBtn.textContent = "New Note";
       createBtn.setAttribute("data-dialogue", "note");
-      return;
+      break;
     case "checklists":
       checkListPage.classList.add("active-page");
       createBtn.textContent = "New Item";
       createBtn.setAttribute("data-dialogue", "item");
-      return;
+      break;
   }
+  
+  document.title = 'TodoList - ' + target[0].toUpperCase() + target.slice(1);
 }
 
 function invokeAction(e) {
