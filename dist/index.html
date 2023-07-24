@@ -82,11 +82,11 @@
                 <h2>This Week</h2>
                 <ul class="projects-contr">
                     <li class="flex-list-item" data-project="0">
-                        <span class="project-name" data-action-type="view-project">Project1</span>
+                        <span class="project-name">Project1</span>
                         <svg data-action-type="delete-project" class="actions" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete</title><path d="M14.12,10.47L12,12.59L9.87,10.47L8.46,11.88L10.59,14L8.47,16.12L9.88,17.53L12,15.41L14.12,17.53L15.53,16.12L13.41,14L15.53,11.88L14.12,10.47M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9Z" /></svg>
                     </li>
                     <li class="flex-list-item" data-project="1">
-                        <span class="project-name" data-action-type="view-project">Project2</span>
+                        <span class="project-name">Project2</span>
                         <svg data-action-type="delete-project" class="actions" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete</title><path d="M14.12,10.47L12,12.59L9.87,10.47L8.46,11.88L10.59,14L8.47,16.12L9.88,17.53L12,15.41L14.12,17.53L15.53,16.12L13.41,14L15.53,11.88L14.12,10.47M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9Z" /></svg>
                     </li>
                 </ul>
@@ -280,24 +280,38 @@
         <div id="modal">
             <div id="modal-box">
                 <div>
-                    <span id="modal-title">Modal title</span><span title="Close" id="close-modal">⨉</span>
+                    <span id="modal-title">New task</span><span title="Close" id="close-modal">⨉</span>
                 </div>
                 <div id="modal-content">
-                    <!-- <form data-action-type="new-project">
+                    <!-- <form data-action-type="new-task">
                         <div class="field">
-                            <label for="project-title">Title</label>
-                            <input id="project-title" name="title" type="text" maxlength="40" required>
-                        </div>
-                        <button type="submit">Save</button>
-                    </form>
-                    <form data-action-type="new-note">
-                        <div class="field">
-                            <label for="note-title">Title</label>
-                            <input id="note-title" name="title" type="text" maxlength="40" required>
+                            <label for="task-title">Title</label>
+                            <input id="task-title" name="title" type="text" maxlength="35" required>
                         </div>
                         <div class="field">
-                            <label for="note-content">Note</label>
-                            <textarea name="content" id="note-content"></textarea>
+                            <label for="task-description">Description</label>
+                            <textarea name="description" id="task-description"></textarea>
+                        </div>
+                        <div class="field">
+                            <label for="task-duedate">Due date</label>
+                            <input id="task-duedate" name="duedate" type="date" required>
+                        </div>
+                        <div class="field">
+                            <label>Priority</label>
+                            <div id="radio-btns-cntr">
+                                <span>
+                                    <input id="task-priority-h" name="priority" type="radio" value="high" required>
+                                    <label for="task-priority-h">High</label>
+                                </span>
+                                <span>
+                                    <input id="task-priority-m" name="priority" type="radio" value="medium" required>
+                                    <label for="task-priority-m">Medium</label>
+                                </span>
+                                <span>
+                                    <input id="task-priority-l" name="priority" type="radio" value="low" required>
+                                    <label for="task-priority-l">Low</label>
+                                </span>
+                            </div>
                         </div>
                         <button type="submit">Save</button>
                     </form> -->
