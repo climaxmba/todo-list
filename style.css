@@ -11,6 +11,9 @@ html {
     --bglight: white;
     --fglight: white;
     --fgdark: black;
+    --prty-high: #ffcdc1;
+    --prty-medium: #fff19f;
+    --prty-low: #cbffce;
 }
 * {
     box-sizing: border-box;
@@ -141,16 +144,13 @@ button:active {
     letter-spacing: 1px;
     padding: var(--smallpad);
     color: var(--fgdark);
-    background-color: navajowhite;
+    background-color: var(--prty-medium);
     border-radius: var(--smallrad);
     border: 1px solid;
 }
 svg.actions {
     height: 1.5rem;
     width: 1.5rem;
-    cursor: pointer;
-}
-#this-week-contr .project-name {
     cursor: pointer;
 }
 #this-week-contr ul {
@@ -193,8 +193,6 @@ svg.actions {
 }
 .notecontent {
     padding: var(--mediumpad);
-    border: 1px solid;
-    border-radius: var(--smallrad);
     margin: 1rem 0;
 }
 
@@ -252,6 +250,10 @@ input.actions {
 #modal-title {
     font-size: 1.25rem;
     font-weight: bold;
+    text-transform: lowercase;
+}
+#modal-title::first-letter {
+    text-transform: uppercase;
 }
 #close-modal {
     cursor: pointer;
@@ -285,4 +287,30 @@ input.actions {
 #modal-content input:focus,
 #modal-content textarea:focus {
     outline: none;
+}
+#modal-content input[type="radio"] {
+    display: none;
+}
+#modal-content label[for|="task-priority"] {
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: x-small;
+    letter-spacing: 1px;
+    padding: var(--smallpad);
+    color: var(--fgdark);
+    border-radius: var(--smallrad);
+    border: 1px solid;
+}
+#modal-content input[type="radio"]:checked ~ label[for="task-priority-h"] {
+    background-color: var(--prty-high);
+}
+#modal-content input[type="radio"]:checked ~ label[for="task-priority-m"] {
+    background-color: var(--prty-medium);
+}
+#modal-content input[type="radio"]:checked ~ label[for|="task-priority-l"] {
+    background-color: var(--prty-low);
+}
+#radio-btns-cntr {
+    display: flex;
+    gap: 0.5rem;
 }
