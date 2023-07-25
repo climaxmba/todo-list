@@ -66,8 +66,9 @@ function addEventsToStaticElements() {
   tabs.forEach((elem) => elem.addEventListener("click", swithTab));
   createBtn.addEventListener('click', invokeAction);
   modal.addEventListener('click', invokeAction);
-  projectsPage.addEventListener('click', invokeAction);
-  homePage.addEventListener('click', invokeAction);
+  pages.forEach(page => {
+    page.addEventListener('click', invokeAction);
+  });
 }
 
 function swithTab(e) {
@@ -127,25 +128,20 @@ function invokeAction(e) {
     if (elem.classList.contains("actions")) {
       // <svg.actions>
       const action = elem.getAttribute("data-action-type");
-      if (action.includes("-task")) {
+      if (action === "view-task" || action === "edit-task") {
         const pindex = parseInt(
           elem.parentElement.getAttribute("data-project")
         );
         const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
         openDialogue({ action, pindex, tindex });
-      } else if (action.includes("-project")) {
+      } else if (action === "view-project" || action === "edit-project") {
         const index = parseInt(elem.parentElement.getAttribute("data-project"));
         openDialogue({ action, index });
-      } else if (action.includes("-note")) {
+      } else if (action === "view-note" || action === "edit-note") {
         const index = parseInt(elem.parentElement.getAttribute("data-note"));
         openDialogue({ action, index });
       }
-    } else if (elem.getAttribute("data-action-type") === "view-project") {
-      // 'This week' in homepage
-      const index = elem.parentElement.getAttribute("data-project");
-      const action = "view-project";
-      openDialogue({ action, index });
-    } else if (elem.id === "close-modal") {
+    }  else if (elem.id === "close-modal") {
       closeModal();
     } else if (elem.getAttribute("data-action-type") === "new-task") {
       const action = elem.getAttribute("data-action-type");
