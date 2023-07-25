@@ -140,6 +140,8 @@ function invokeAction(e) {
       } else if (action === "view-note" || action === "edit-note") {
         const index = parseInt(elem.parentElement.getAttribute("data-note"));
         openDialogue({ action, index });
+      } else if (action.includes("delete")) {
+        // delete action
       }
     }  else if (elem.id === "close-modal") {
       closeModal();

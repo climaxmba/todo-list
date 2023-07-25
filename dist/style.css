@@ -258,7 +258,8 @@ input.actions {
 #close-modal {
     cursor: pointer;
 }
-#modal-content form {
+#modal-content form,
+#modal-content > div {
     border: none;
     display: flex;
     gap: 1rem;
@@ -313,4 +314,10 @@ input.actions {
 #radio-btns-cntr {
     display: flex;
     gap: 0.5rem;
+}
+#details .field > div:first-child {
+    font-weight: bold;
+}
+#details .task-lbl {
+    align-self: flex-start;
 }
