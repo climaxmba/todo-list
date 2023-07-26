@@ -1,6 +1,16 @@
 import pubSub from "./pubSub.js";
 import { Project, Task, Note, CheckList } from "./projectsTasks.js";
-import { addEventsToStaticElements } from "./display.js";
+import { addEventsToStaticElements, renderData } from "./display.js";
+
+const displayController = (function() {
+  init();
+  
+  function init() {
+    addEventsToStaticElements();
+  }
+
+  pubSub.subscribe('dataChanged', renderData);
+})()
 
 const projectsHandler = (function () {
   let projects = [],
@@ -24,6 +34,7 @@ const projectsHandler = (function () {
         CheckList.default.listTxt
       )
     );
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
 
   function addProject(project) {
@@ -50,12 +61,6 @@ const projectsHandler = (function () {
   function removeCheckList(index) {
     checkLists.splice(index, 1);
   }
-})();
 
-const displayController = (function() {
-  init();
-  
-  function init() {
-    addEventsToStaticElements();
-  }
-})()
+  return {  }
+})();

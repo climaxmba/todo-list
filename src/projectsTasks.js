@@ -7,9 +7,9 @@ class Project {
   }
   static get default() {
     return {
-      title: "tutorial",
+      title: "TodoList tutorial",
       task: [
-        new Task("tutorial", "Try out this application", new Date(), "medium"),
+        new Task("Try out this application", "", new Date(), "medium"),
       ],
     };
   }
@@ -59,7 +59,7 @@ class Note {
   }
   // Manual
   static get default() {
-    return { title: "How to use this TodoList", note: "" };
+    return { title: "How to use this TodoList", note: "Click the new project button and add new project" };
   }
 }
 
