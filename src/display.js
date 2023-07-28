@@ -1,5 +1,3 @@
-import {isThisWeek, isToday} from "date-fns";
-
 const homePage = document.getElementById("home-page"),
   tabs = document.querySelectorAll(".tabs"),
   createBtn = document.getElementById("newbtn"),
@@ -7,9 +5,9 @@ const homePage = document.getElementById("home-page"),
   notesPage = document.getElementById("notes-page"),
   checkListPage = document.getElementById("checklist-page"),
   pages = [homePage, projectsPage, notesPage, checkListPage],
-  modal = document.getElementById('modal'),
+  modal = document.getElementById("modal"),
   modalTitle = document.getElementById("modal-title"),
-  modalContent = document.getElementById('modal-content');
+  modalContent = document.getElementById("modal-content");
 
 const modalForms = {
   "new-project": `<form data-action-type="new-project">
@@ -64,15 +62,6 @@ const modalForms = {
 </form>`,
 };
 
-function addEventsToStaticElements() {
-  tabs.forEach((elem) => elem.addEventListener("click", swithTab));
-  createBtn.addEventListener('click', invokeAction);
-  modal.addEventListener('click', invokeAction);
-  pages.forEach(page => {
-    page.addEventListener('click', invokeAction);
-  });
-}
-
 function swithTab(e) {
   // Do nothing if user clicks an active tab
   if (e.target.classList.contains("active")) return;
@@ -83,14 +72,14 @@ function swithTab(e) {
       page.classList.remove("active-page");
     }
   });
-  tabs.forEach(tab => {
-    if (tab.classList.contains('active')) {
-      tab.classList.remove('active');
+  tabs.forEach((tab) => {
+    if (tab.classList.contains("active")) {
+      tab.classList.remove("active");
     }
-  })
+  });
 
   // Add the class, 'active-page' & 'active'and change createBtn text
-  e.target.classList.add('active');
+  e.target.classList.add("active");
   const target = e.target.getAttribute("data-target-value");
   switch (target) {
     case "home":
@@ -114,17 +103,11 @@ function swithTab(e) {
       createBtn.setAttribute("data-dialogue", "item");
       break;
   }
-  
-  document.title = 'TodoList - ' + target[0].toUpperCase() + target.slice(1);
+
+  document.title = "TodoList - " + target[0].toUpperCase() + target.slice(1);
 }
 
-function invokeAction(e) {
-  // Move up to <svg> if target element is <path>
-  const elem =
-    e.target.tagName.toLowerCase() === "path"
-      ? e.target.parentElement
-      : e.target;
-
+function invokeAction(e, elem) {
   if (e.target !== e.currentTarget) {
     // UI icons
     if (elem.classList.contains("actions")) {
@@ -145,7 +128,7 @@ function invokeAction(e) {
       } else if (action.includes("delete")) {
         // delete action
       }
-    }  else if (elem.id === "close-modal") {
+    } else if (elem.id === "close-modal") {
       closeModal();
     } else if (elem.getAttribute("data-action-type") === "new-task") {
       const action = elem.getAttribute("data-action-type");
@@ -153,7 +136,7 @@ function invokeAction(e) {
       openDialogue({ action, pindex });
     }
   } else if (elem === createBtn) {
-    const action = `new-${createBtn.getAttribute('data-dialogue')}`;
+    const action = `new-${createBtn.getAttribute("data-dialogue")}`;
     openDialogue({ action });
   } else if (elem === modal) {
     closeModal();
@@ -184,17 +167,18 @@ function renderData(data) {
     projectsContainer = projectsPage.querySelector(".projects-contr"),
     notesContainer = notesPage.querySelector("#notes-contr"),
     checkListContainer = checkListPage.querySelector("#checklist-page-contr"),
-    todaysTaskContr = homePage.querySelector('.projects-contr'),
-    thisWeeksTasksContr = document.getElementById("this-week-contr").querySelector(".projects-contr");
-  
+    todaysTaskContr = homePage.querySelector(".projects-contr"),
+    thisWeeksTasksContr = document
+      .getElementById("this-week-contr")
+      .querySelector(".projects-contr");
+
   projectsContainer.innerHTML = "";
   notesContainer.innerHTML = "";
   checkListContainer.innerHTML = "";
   todaysTaskContr.innerHTML = "";
   thisWeeksTasksContr.innerHTML = "";
-  
+
   for (let i = 0; i < projects.length; i++) {
-  
     // Today's tasks
     if (projects[i].getTodaysTasks() !== []) {
       const elem = document.createElement("div"),
@@ -205,7 +189,7 @@ function renderData(data) {
                         <ul></ul>`;
       elem.querySelector(".project-name").textContent = projects[i].title;
       for (let j = 0; j < tasks.length; j++) {
-        const listElem = document.createElement('li');
+        const listElem = document.createElement("li");
         listElem.innerHTML = `<span class="flex-list-item">
                                 <span class="flex-list-elem"><span class="task-name"></span><span class="task-lbl"></span></span>
                                 <span class="flex-list-elem" data-project="${j}" data-task="${j}">
@@ -216,7 +200,7 @@ function renderData(data) {
                               </span>`;
         listElem.querySelector(".task-name").textContent = tasks[j].title;
         listElem.querySelector(".task-lbl").textContent = tasks[j].priority;
-        elem.querySelector('ul').appendChild(listElem);
+        elem.querySelector("ul").appendChild(listElem);
       }
       todaysTaskContr.appendChild(elem);
     }
@@ -225,11 +209,11 @@ function renderData(data) {
     if (projects[i].getThisWeeksTasks() !== []) {
       const elem = document.createElement("li");
       elem.className = "flex-list-item";
-      elem.setAttribute('data-project', i.toString());
+      elem.setAttribute("data-project", i.toString());
 
       elem.innerHTML = `<span class="project-name"></span>
         <svg data-action-type="delete-project" class="actions" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete</title><path d="M14.12,10.47L12,12.59L9.87,10.47L8.46,11.88L10.59,14L8.47,16.12L9.88,17.53L12,15.41L14.12,17.53L15.53,16.12L13.41,14L15.53,11.88L14.12,10.47M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9Z" /></svg>`;
-      
+
       elem.querySelector(".project-name").textContent = projects[i].title;
       thisWeeksTasksContr.appendChild(elem);
     }
@@ -275,7 +259,7 @@ function renderData(data) {
       </li>`;
       taskNode.querySelector(".task-name").textContent = tasks[j].title;
       taskNode.querySelector(".task-lbl").textContent = tasks[j].priority;
-      projectNode.querySelector('ul').appendChild(taskNode);
+      projectNode.querySelector("ul").appendChild(taskNode);
     }
 
     projectsContainer.appendChild(projectNode);
@@ -314,10 +298,11 @@ function renderData(data) {
         <title>Delete</title>
         <path d="M14.12,10.47L12,12.59L9.87,10.47L8.46,11.88L10.59,14L8.47,16.12L9.88,17.53L12,15.41L14.12,17.53L15.53,16.12L13.41,14L15.53,11.88L14.12,10.47M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9Z" />
     </svg>`;
-    node.querySelector(`label[for="list${i}"]`).textContent = checkLists[i].listTxt;
+    node.querySelector(`label[for="list${i}"]`).textContent =
+      checkLists[i].listTxt;
 
     checkListContainer.appendChild(node);
   }
 }
 
-export { addEventsToStaticElements, renderData };
+export { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData };

@@ -1,12 +1,35 @@
 import pubSub from "./pubSub.js";
 import { Project, Task, Note, CheckList } from "./projectsTasks.js";
-import { addEventsToStaticElements, renderData } from "./display.js";
+import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData } from "./display.js";
 
 const displayController = (function() {
   init();
   
   function init() {
     addEventsToStaticElements();
+  }
+  function addDataEvent() {
+    document.getElementById('main').addEventListener('click', invokeDataAction);
+  }
+  function addEventsToStaticElements() {
+    tabs.forEach((elem) => elem.addEventListener("click", swithTab));
+    createBtn.addEventListener('click', invokeActions);
+    modal.addEventListener('click', invokeActions);
+    pages.forEach(page => {
+      page.addEventListener('click', invokeActions);
+    });
+  }
+  function invokeActions(e) {
+    // Move up to <svg> if target element is <path>
+    const elem =
+      e.target.tagName.toLowerCase() === "path"
+        ? e.target.parentElement
+        : e.target;
+    invokeAction(e, elem);
+    invokeDataAction(e, elem);
+  }
+  function invokeDataAction(e, elem) {
+    console.log(e.target);
   }
 
   pubSub.subscribe('dataChanged', renderData);
@@ -61,6 +84,4 @@ const projectsHandler = (function () {
   function removeCheckList(index) {
     checkLists.splice(index, 1);
   }
-
-  return {  }
 })();
