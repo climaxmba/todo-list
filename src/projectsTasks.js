@@ -41,11 +41,12 @@ class Project {
 }
 
 class Task {
-  constructor(title, description, dueDate, priority) {
+  constructor(title, description, dueDate, priority, pindex) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.pindex = (pindex !== undefined)? pindex : 0;
   }
   get info() {
     return `${this.title}:\n${this.description}\n${this.priority}`;
