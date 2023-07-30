@@ -1,15 +1,12 @@
 import pubSub from "./pubSub.js";
 import { Project, Task, Note, CheckList } from "./projectsTasks.js";
-import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData } from "./display.js";
+import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal } from "./display.js";
 
 const displayController = (function() {
   init();
   
   function init() {
     addEventsToStaticElements();
-  }
-  function addDataEvent() {
-    document.getElementById('main').addEventListener('click', invokeDataAction);
   }
   function addEventsToStaticElements() {
     tabs.forEach((elem) => elem.addEventListener("click", swithTab));
@@ -29,10 +26,37 @@ const displayController = (function() {
     invokeDataAction(e, elem);
   }
   function invokeDataAction(e, elem) {
-    console.log(e.target);
+    if (elem.getAttribute('type') === "submit") {
+      e.preventDefault();
+
+      const form = elem.parentElement;
+      const data = Object.fromEntries(new FormData(form));
+      let isValid = Object.values(data).every(entry => entry);
+ 
+      if (isValid) {
+        const action = form.getAttribute("data-action-type");
+        let entry;
+        if (action === "new-project") {
+          entry = new Project(data.title, []);
+        } else if (action === "new-note") {
+          entry = new Note(data.title, data.note);
+        } else if (action === "new-task") {
+          entry = new Task(
+            data.title,
+            data.description,
+            new Date(data.duedate),
+            data.priority ? data.priority : "medium",
+            parseInt(elem.getAttribute("data-project"))
+          );
+        }
+
+        closeModal();
+        pubSub.publish("formSubmitted", entry);
+      }
+    }
   }
 
-  pubSub.subscribe('dataChanged', renderData);
+  pubSub.subscribe("dataChanged", renderData);
 })()
 
 const projectsHandler = (function () {
@@ -62,12 +86,15 @@ const projectsHandler = (function () {
 
   function addProject(project) {
     projects.push(project);
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
   function addTaskToProject(index, task) {
     projects[index].addTask(task);
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
   function addNote(note) {
     notes.push(note);
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
   function addCheckList(checkList) {
     checkLists.push(checkList);
@@ -84,4 +111,15 @@ const projectsHandler = (function () {
   function removeCheckList(index) {
     checkLists.splice(index, 1);
   }
+  function addEntry(entry) {
+    if (entry instanceof Project) {
+      addProject(entry);
+    } else if (entry instanceof Task) {
+      addTaskToProject(entry.pindex, entry);
+    } else if (entry instanceof Note) {
+      addNote(entry);
+    }
+  }
+
+  pubSub.subscribe("formSubmitted", addEntry);
 })();
