@@ -26,13 +26,13 @@ const displayController = (function() {
     invokeDataAction(e, elem);
   }
   function invokeDataAction(e, elem) {
-    if (elem.getAttribute('type') === "submit") {
+    if (elem.getAttribute("type") === "submit") {
       e.preventDefault();
 
       const form = elem.parentElement;
       const data = Object.fromEntries(new FormData(form));
-      let isValid = Object.values(data).every(entry => entry);
- 
+      let isValid = Object.values(data).every((entry) => entry);
+
       if (isValid) {
         const action = form.getAttribute("data-action-type");
         let entry;
@@ -52,6 +52,18 @@ const displayController = (function() {
 
         closeModal();
         pubSub.publish("formSubmitted", entry);
+      }
+    } else if (elem.getAttribute("data-action-type")) {
+      const action = elem.getAttribute("data-action-type");
+      if (action.includes("delete")) {
+        if (action === "delete-task") {
+          const pindex = parseInt(elem.parentElement.getAttribute("data-project"));
+          const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
+          pubSub.publish("deleteEntity", { action, pindex, tindex });
+        } else {
+          const index = parseInt(elem.parentElement.getAttribute("data-task"));
+          pubSub.publish("deleteEntity", { action, index });
+        }
       }
     }
   }
@@ -98,18 +110,23 @@ const projectsHandler = (function () {
   }
   function addCheckList(checkList) {
     checkLists.push(checkList);
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
   function removeProject(index) {
     projects.splice(index, 1);
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
   function removeTaskFromProject(pindex, tindex) {
     projects[pindex].removeTask(tindex);
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
   function removeNote(index) {
     notes.splice(index, 1);
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
   function removeCheckList(index) {
     checkLists.splice(index, 1);
+    pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
   function addEntry(entry) {
     if (entry instanceof Project) {
@@ -120,6 +137,16 @@ const projectsHandler = (function () {
       addNote(entry);
     }
   }
+  function deleteObj(entity) {
+    if (entity.action === "delete-task") {
+      removeTaskFromProject(entity.pindex, entity.tindex);
+    } else if (entity.action === "delete-project") {
+      removeProject(entity.index);
+    } else if (entity.action === "delete-note") {
+      removeNote(entity.index);
+    }
+  }
 
   pubSub.subscribe("formSubmitted", addEntry);
+  pubSub.subscribe("deleteEntity", deleteObj);
 })();
