@@ -111,21 +111,7 @@ function swithTab(e) {
 
 function invokeAction(e, elem) {
   if (e.target !== e.currentTarget) {
-    // UI icons
-    if (elem.classList.contains("actions")) {
-      // <svg.actions>
-      const action = elem.getAttribute("data-action-type");
-      if (action === "view-task" || action === "edit-task") {
-        const pindex = parseInt(
-          elem.parentElement.getAttribute("data-project")
-        );
-        const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
-        openDialogue({ action, pindex, tindex });
-      } else if (action === "view-note" || action === "edit-note") {
-        const index = parseInt(elem.parentElement.getAttribute("data-note"));
-        openDialogue({ action, index });
-      }
-    } else if (elem.id === "close-modal") {
+    if (elem.id === "close-modal") {
       closeModal();
     } else if (elem.getAttribute("data-action-type") === "new-task") {
       const action = elem.getAttribute("data-action-type");
@@ -189,6 +175,40 @@ function openDialogue(dialogue) {
         </div>
         <button type="submit">Save</button>
       </form>`;
+  } else if (dialogue.action === "edit-task") {
+    modalContent.innerHTML = `<form data-action-type="edit-task" data-project="${dialogue.pindex}" data-task="${dialogue.tindex}">
+          <div class="field">
+              <label for="task-title">Title</label>
+              <input id="task-title" name="title" type="text" maxlength="35" value="${dialogue.title}" required>
+          </div>
+          <div class="field">
+              <label for="task-description">Description</label>
+              <textarea name="description" id="task-description" value="${dialogue.description}" ></textarea>
+          </div>
+          <div class="field">
+              <label for="task-duedate">Due date</label>
+              <input id="task-duedate" name="duedate" type="date" value="${dialogue.dueDate}" required>
+          </div>
+          <div class="field">
+              <label>Priority</label>
+              <div id="radio-btns-cntr">
+                  <span>
+                      <input id="task-priority-h" name="priority" type="radio" value="high" required>
+                      <label for="task-priority-h">High</label>
+                  </span>
+                  <span>
+                      <input id="task-priority-m" name="priority" type="radio" value="medium" required>
+                      <label for="task-priority-m">Medium</label>
+                  </span>
+                  <span>
+                      <input id="task-priority-l" name="priority" type="radio" value="low" required>
+                      <label for="task-priority-l">Low</label>
+                  </span>
+              </div>
+          </div>
+          <button type="submit">Save</button>
+      </form>`;
+    modalContent.querySelector(`#task-priority-${dialogue.priority.toLowerCase()[0]}`).checked = true;
   }
   openModal();
 }

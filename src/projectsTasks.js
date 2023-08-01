@@ -1,4 +1,4 @@
-import {isThisWeek, isToday} from "date-fns";
+import { isThisWeek, isToday } from "date-fns";
 
 class Project {
   constructor(title, tasks) {

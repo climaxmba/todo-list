@@ -8,6 +8,7 @@ const displayController = (function() {
   function init() {
     addEventsToStaticElements();
   }
+
   function addEventsToStaticElements() {
     tabs.forEach((elem) => elem.addEventListener("click", swithTab));
     createBtn.addEventListener('click', invokeActions);
@@ -16,6 +17,7 @@ const displayController = (function() {
       page.addEventListener('click', invokeActions);
     });
   }
+
   function invokeActions(e) {
     // Move up to <svg> if target element is <path>
     const elem =
@@ -54,12 +56,26 @@ const displayController = (function() {
             title: data.title,
             index: parseInt(form.getAttribute("data-project")),
           };
+        } else if (action === "edit-task") {
+          entry = {
+            action,
+            pindex: parseInt(form.getAttribute("data-project")),
+            tindex: parseInt(form.getAttribute("data-task")),
+            task: new Task(
+              data.title,
+              data.description,
+              new Date(data.dueDate),
+              data.priority ? data.priority : "medium",
+              parseInt(form.getAttribute("data-project")),
+            ),
+          };
         }
 
         closeModal();
         pubSub.publish("formSubmitted", entry);
       }
     } else if (elem.getAttribute("data-action-type")) {
+      // Data read manipulation actions
       const action = elem.getAttribute("data-action-type");
       if (action.includes("delete")) {
         if (action === "delete-task") {
@@ -72,6 +88,7 @@ const displayController = (function() {
         }
       } else if (action.includes("view")) {
         if (action === "view-task") {
+          // Open view task modal
           const task = projectsHandler.getTask(
             parseInt(elem.parentElement.getAttribute("data-project")),
             parseInt(elem.parentElement.getAttribute("data-task"))
@@ -86,6 +103,7 @@ const displayController = (function() {
         }
       } else if (action.includes("edit")) {
         if (action === "edit-project") {
+          // Open edit project modal
           const index = parseInt(
             elem.parentElement.getAttribute("data-project")
           );
@@ -94,6 +112,22 @@ const displayController = (function() {
             action,
             index,
             title: project.title,
+          });
+        } else if (action === "edit-task") {
+          // Open edit task modal
+          const pindex = parseInt(
+              elem.parentElement.getAttribute("data-project")
+            ),
+            tindex = parseInt(elem.parentElement.getAttribute("data-project")),
+            task = projectsHandler.getTask(pindex, tindex);
+          openDialogue({
+            action,
+            pindex,
+            tindex,
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            priority: task.priority,
           });
         }
       }
@@ -178,6 +212,8 @@ const projectsHandler = (function () {
   function updateEntry(data) {
     if (data.action === "edit-project") {
       projects[data.index].title = data.title;
+    } else if (data.action === "edit-task") {
+      projects[data.pindex].tasks[data.tindex] = data.task;
     }
     pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
