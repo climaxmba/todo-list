@@ -64,6 +64,20 @@ const displayController = (function() {
           const index = parseInt(elem.parentElement.getAttribute("data-task"));
           pubSub.publish("deleteEntity", { action, index });
         }
+      } else if (action.includes("view")) {
+        if (action === "view-task") {
+          const task = projectsHandler.getTask(
+            parseInt(elem.parentElement.getAttribute("data-project")),
+            parseInt(elem.parentElement.getAttribute("data-task"))
+          );
+          openDialogue({
+            action,
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            priority: task.priority,
+          });
+        }
       }
     }
   }
@@ -128,6 +142,12 @@ const projectsHandler = (function () {
     checkLists.splice(index, 1);
     pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
+  function getTask(pindex, tindex) {
+    return projects[pindex].tasks[tindex];
+  }
+  function getProject(index) {
+    return projects[index];
+  }
   function addEntry(entry) {
     if (entry instanceof Project) {
       addProject(entry);
@@ -149,4 +169,6 @@ const projectsHandler = (function () {
 
   pubSub.subscribe("formSubmitted", addEntry);
   pubSub.subscribe("deleteEntity", deleteObj);
+
+  return { getTask, getProject };
 })();

@@ -1,4 +1,4 @@
-import isToday from "date-fns/isToday";
+import { isToday, isTomorrow, lightFormat } from "date-fns";
 
 const homePage = document.getElementById("home-page"),
   tabs = document.querySelectorAll(".tabs"),
@@ -127,8 +127,6 @@ function invokeAction(e, elem) {
       } else if (action === "view-note" || action === "edit-note") {
         const index = parseInt(elem.parentElement.getAttribute("data-note"));
         openDialogue({ action, index });
-      } else if (action.includes("delete")) {
-        // delete action
       }
     } else if (elem.id === "close-modal") {
       closeModal();
@@ -148,13 +146,44 @@ function invokeAction(e, elem) {
 }
 
 function openDialogue(dialogue) {
-  if (dialogue.action) {
-    modalContent.innerHTML = modalForms[dialogue.action] || "";
-    modalTitle.textContent = dialogue.action.split("-").join(" ");
+  modalContent.innerHTML = modalForms[dialogue.action] || "";
+  modalTitle.textContent = dialogue.action.split("-").join(" ");
 
-    if (dialogue.action === "new-task") {
-      modalContent.querySelector("button[type='submit']").setAttribute("data-project", dialogue.pindex)
-    }
+  if (dialogue.action === "new-task") {
+    modalContent
+      .querySelector("button[type='submit']")
+      .setAttribute("data-project", dialogue.pindex);
+  } else if (dialogue.action === "view-task") {
+    modalContent.innerHTML = `<div id="details">
+          <div class="field">
+              <div>Title</div>
+              <div></div>
+          </div>
+          <div class="field">
+              <div>Description</div>
+              <div></div>
+          </div>
+          <div class="field">
+              <div>Due date</div>
+              <div>${
+                isToday(dialogue.dueDate)
+                  ? "Today"
+                  : isTomorrow(dialogue.dueDate)
+                  ? "Tomorrow"
+                  : dialogue.dueDate
+              }</div>
+          </div>
+          <div class="field">
+              <div>Priority</div>
+              <div class="task-lbl">${dialogue.priority}</div>
+          </div>
+      </div>`;
+    modalContent.querySelector(
+      ".field:first-child > div:last-child"
+    ).textContent = dialogue.title;
+    modalContent.querySelector(
+      ".field:nth-child(2) > div:last-child"
+    ).textContent = dialogue.description ? dialogue.description : "None";
   }
   openModal();
 }
