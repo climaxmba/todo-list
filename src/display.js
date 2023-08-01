@@ -121,9 +121,6 @@ function invokeAction(e, elem) {
         );
         const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
         openDialogue({ action, pindex, tindex });
-      } else if (action === "view-project" || action === "edit-project") {
-        const index = parseInt(elem.parentElement.getAttribute("data-project"));
-        openDialogue({ action, index });
       } else if (action === "view-note" || action === "edit-note") {
         const index = parseInt(elem.parentElement.getAttribute("data-note"));
         openDialogue({ action, index });
@@ -184,6 +181,14 @@ function openDialogue(dialogue) {
     modalContent.querySelector(
       ".field:nth-child(2) > div:last-child"
     ).textContent = dialogue.description ? dialogue.description : "None";
+  } else if (dialogue.action === "edit-project") {
+    modalContent.innerHTML = `<form data-action-type="edit-project" data-project="${dialogue.index}">
+        <div class="field">
+            <label for="project-title">Title</label>
+            <input id="project-title" name="title" type="text" maxlength="40" value="${dialogue.title}" required>
+        </div>
+        <button type="submit">Save</button>
+      </form>`;
   }
   openModal();
 }
