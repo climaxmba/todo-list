@@ -1,4 +1,4 @@
-import { isToday, isTomorrow, lightFormat } from "date-fns";
+import { isToday, isTomorrow, parseISO, lightFormat } from "date-fns";
 
 const homePage = document.getElementById("home-page"),
   tabs = document.querySelectorAll(".tabs"),
@@ -41,7 +41,7 @@ const modalForms = {
     </div>
     <div class="field">
         <label for="task-duedate">Due date</label>
-        <input id="task-duedate" name="duedate" type="date" required>
+        <input id="task-duedate" name="dueDate" type="date" required>
     </div>
     <div class="field">
         <label>Priority</label>
@@ -149,11 +149,11 @@ function openDialogue(dialogue) {
           <div class="field">
               <div>Due date</div>
               <div>${
-                isToday(dialogue.dueDate)
+                isToday(new Date(dialogue.dueDate))
                   ? "Today"
-                  : isTomorrow(dialogue.dueDate)
+                  : isTomorrow(new Date(dialogue.dueDate))
                   ? "Tomorrow"
-                  : dialogue.dueDate
+                  : lightFormat(parseISO(new Date(dialogue.dueDate).toISOString().slice(0, 10)), "dd/MM/yyyy")
               }</div>
           </div>
           <div class="field">
@@ -183,11 +183,11 @@ function openDialogue(dialogue) {
           </div>
           <div class="field">
               <label for="task-description">Description</label>
-              <textarea name="description" id="task-description" value="${dialogue.description}" ></textarea>
+              <textarea name="description" id="task-description">${dialogue.description}</textarea>
           </div>
           <div class="field">
               <label for="task-duedate">Due date</label>
-              <input id="task-duedate" name="duedate" type="date" value="${dialogue.dueDate}" required>
+              <input id="task-duedate" name="dueDate" type="date" value="${dialogue.dueDate.toISOString().slice(0, 10)}" required>
           </div>
           <div class="field">
               <label>Priority</label>

@@ -1,4 +1,4 @@
-import { isThisWeek, isToday } from "date-fns";
+import { isThisWeek, isToday, lightFormat } from "date-fns";
 
 class Project {
   constructor(title, tasks) {
@@ -9,7 +9,12 @@ class Project {
     return {
       title: "TodoList tutorial",
       task: [
-        new Task("Try out this application", "", new Date(), "medium"),
+        new Task(
+          "Try out this application",
+          "",
+          new Date(),
+          "medium"
+        ),
       ],
     };
   }

@@ -46,7 +46,7 @@ const displayController = (function() {
           entry = new Task(
             data.title,
             data.description,
-            new Date(data.duedate),
+            new Date(data.dueDate),
             data.priority ? data.priority : "medium",
             parseInt(elem.getAttribute("data-project"))
           );
@@ -118,7 +118,7 @@ const displayController = (function() {
           const pindex = parseInt(
               elem.parentElement.getAttribute("data-project")
             ),
-            tindex = parseInt(elem.parentElement.getAttribute("data-project")),
+            tindex = parseInt(elem.parentElement.getAttribute("data-task")),
             task = projectsHandler.getTask(pindex, tindex);
           openDialogue({
             action,
