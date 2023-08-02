@@ -26,7 +26,7 @@ const modalForms = {
     </div>
     <div class="field">
         <label for="note-content">Note</label>
-        <textarea name="content" id="note-content"></textarea>
+        <textarea name="note" id="note-content"></textarea>
     </div>
     <button type="submit">Save</button>
     </form>`,
