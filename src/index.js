@@ -1,6 +1,6 @@
-import pubSub from "./pubSub.js";
-import { Project, Task, Note, CheckList } from "./projectsTasks.js";
-import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal } from "./display.js";
+import pubSub from "./modules/pubSub.js";
+import { Project, Task, Note, CheckList } from "./modules/projectsTasks.js";
+import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal } from "./modules/display.js";
 
 const displayController = (function() {
   init();
