@@ -1,6 +1,7 @@
 import pubSub from "./modules/pubSub.js";
 import { Project, Task, Note, CheckList } from "./modules/projectsTasks.js";
 import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal } from "./modules/display.js";
+import Storage from "./modules/storage.js";
 
 const displayController = (function() {
   init();
@@ -142,23 +143,12 @@ const projectsHandler = (function () {
     notes = [],
     checkLists = [];
 
-  initDefaults(true);
+  _init();
 
-  function initDefaults(reset) {
-    if (reset) {
-      projects = [];
-      notes = [];
-      checkLists = [];
-    }
-    addProject(
-      new Project(Project.default.title, Project.default.task)
-    );
-    addNote(new Note(Note.default.title, Note.default.note));
-    addCheckList(
-      new CheckList(
-        CheckList.default.listTxt
-      )
-    );
+  function _init() {
+    projects = Storage.getData().projects;
+    notes = Storage.getData().notes;
+
     pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
 
