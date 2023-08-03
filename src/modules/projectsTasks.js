@@ -5,19 +5,6 @@ class Project {
     this.title = title;
     this.tasks = tasks;
   }
-  static get default() {
-    return {
-      title: "TodoList tutorial",
-      task: [
-        new Task(
-          "Try out this application",
-          "",
-          new Date(),
-          "medium"
-        ),
-      ],
-    };
-  }
   get sortedTasks() {
     return this.tasks.sort((a, b) => a.dueDate - b.dueDate);
   }
@@ -53,9 +40,6 @@ class Task {
     this.priority = priority;
     this.pindex = (pindex !== undefined)? pindex : 0;
   }
-  get info() {
-    return `${this.title}:\n${this.description}\n${this.priority}`;
-  }
 }
 
 class Note {
@@ -63,18 +47,11 @@ class Note {
     this.title = title;
     this.note = note;
   }
-  // Manual
-  static get default() {
-    return { title: "How to use this TodoList", note: "Click the new project button and add new project" };
-  }
 }
 
 class CheckList {
   constructor(listTxt) {
     this.listTxt = listTxt;
-  }
-  static get default() {
-    return { listTxt: "Read 'How to use this TodoList'" };
   }
 }
 
