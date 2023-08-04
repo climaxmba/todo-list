@@ -154,8 +154,7 @@ const displayController = (function() {
 
 const projectsHandler = (function () {
   let projects = [],
-    notes = [],
-    checkLists = [];
+    notes = [];
 
   _init();
 
@@ -163,40 +162,32 @@ const projectsHandler = (function () {
     projects = Storage.getData().projects;
     notes = Storage.getData().notes;
 
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
+    pubSub.publish('dataChanged', { projects, notes });
   }
 
   function addProject(project) {
     projects.push(project);
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
+    pubSub.publish('dataChanged', { projects, notes });
   }
   function addTaskToProject(index, task) {
     projects[index].addTask(task);
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
+    pubSub.publish('dataChanged', { projects, notes });
   }
   function addNote(note) {
     notes.push(note);
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
-  }
-  function addCheckList(checkList) {
-    checkLists.push(checkList);
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
+    pubSub.publish('dataChanged', { projects, notes });
   }
   function removeProject(index) {
     projects.splice(index, 1);
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
+    pubSub.publish('dataChanged', { projects, notes });
   }
   function removeTaskFromProject(pindex, tindex) {
     projects[pindex].removeTask(tindex);
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
+    pubSub.publish('dataChanged', { projects, notes });
   }
   function removeNote(index) {
     notes.splice(index, 1);
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
-  }
-  function removeCheckList(index) {
-    checkLists.splice(index, 1);
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
+    pubSub.publish('dataChanged', { projects, notes });
   }
   function getTask(pindex, tindex) {
     return projects[pindex].tasks[tindex];
@@ -224,7 +215,7 @@ const projectsHandler = (function () {
     } else if (data.action === "edit-note") {
       notes[data.index] = data.note;
     }
-    pubSub.publish('dataChanged', { projects, notes, checkLists });
+    pubSub.publish('dataChanged', { projects, notes });
   }
   function deleteObj(entity) {
     if (entity.action === "delete-task") {
