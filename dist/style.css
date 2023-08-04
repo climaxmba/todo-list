@@ -21,7 +21,7 @@ html {
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     display: grid;
-    grid-template: 130vh auto / 75vw 1fr;
+    grid-template: minmax(120vh, 250%) / 70vw 1fr;
     gap: 1em;
     margin: 0;
     padding-left: 1rem;
@@ -63,10 +63,12 @@ button:active {
 #main > div:not(.active-page) {
     display: none;
 }
+#menu-icon {
+    display: none;
+}
 #sidebar {
     background: var(--bgdark);
     color: var(--fglight);
-    grid-row: span 2;
 }
 #sidebar ul {
     list-style: none;
@@ -82,10 +84,6 @@ button:active {
 }
 .tabs.active {
     font-weight: bold;
-}
-#footer {
-    padding: var(--largepad);
-    text-align: center;
 }
 
 /* home */
@@ -196,29 +194,6 @@ svg.actions {
     margin: 1rem 0;
 }
 
-/* checklist */
-#checklist-page {
-    margin: 1.5rem 0;
-}
-#checklist-page ul {
-    display: flex;
-    gap: 8px;
-    flex-direction: column;
-    padding-left: 0;
-    list-style: none;
-}
-#checklist-page li {
-    display: flex;
-    justify-content: space-between;
-    border-radius: var(--mediumrad);
-    padding: var(--mediumpad);
-    box-shadow: var(--shadow);
-}
-input.actions {
-    cursor: pointer;
-    /* custom input styles */
-}
-
 /* modal */
 #modal.active {
     display: flex !important;
@@ -320,4 +295,19 @@ input.actions {
 }
 #details .task-lbl {
     align-self: flex-start;
+}
+
+@media (max-width: 680px) {
+    body {
+        display: unset;
+    }
+    #main {
+        padding: var(--largepad);
+    }
+    #menu-icon {
+        display: block;
+    }
+    #sidebar {
+        display: none;
+    }
 }
