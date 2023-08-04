@@ -4,9 +4,9 @@ import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, open
 import Storage from "./modules/storage.js";
 
 const displayController = (function() {
-  init();
+  _init();
   
-  function init() {
+  function _init() {
     addEventsToStaticElements();
   }
 
@@ -70,6 +70,12 @@ const displayController = (function() {
               parseInt(form.getAttribute("data-project")),
             ),
           };
+        } else if (action === "edit-note") {
+          entry = {
+            action,
+            index: parseInt(form.getAttribute("data-note")),
+            note: new Note(data.title, data.note),
+          };
         }
 
         closeModal();
@@ -130,6 +136,14 @@ const displayController = (function() {
             dueDate: task.dueDate,
             priority: task.priority,
           });
+        } else if (action === "edit-note") {
+          const index = parseInt(elem.parentElement.getAttribute("data-note"));
+          openDialogue({
+            action,
+            index,
+            title: projectsHandler.getNote(index).title,
+            note: projectsHandler.getNote(index).note,
+          })
         }
       }
     }
@@ -190,6 +204,9 @@ const projectsHandler = (function () {
   function getProject(index) {
     return projects[index];
   }
+  function getNote(index) {
+    return notes[index];
+  }
   function addEntry(entry) {
     if (entry instanceof Project) {
       addProject(entry);
@@ -204,6 +221,8 @@ const projectsHandler = (function () {
       projects[data.index].title = data.title;
     } else if (data.action === "edit-task") {
       projects[data.pindex].tasks[data.tindex] = data.task;
+    } else if (data.action === "edit-note") {
+      notes[data.index] = data.note;
     }
     pubSub.publish('dataChanged', { projects, notes, checkLists });
   }
@@ -221,5 +240,5 @@ const projectsHandler = (function () {
   pubSub.subscribe("formSubmitted", updateEntry);
   pubSub.subscribe("deleteEntity", deleteObj);
 
-  return { getTask, getProject };
+  return { getTask, getProject, getNote };
 })();

@@ -203,6 +203,18 @@ function openDialogue(dialogue) {
           <button type="submit">Save</button>
       </form>`;
     modalContent.querySelector(`#task-priority-${dialogue.priority.toLowerCase()[0]}`).checked = true;
+  } else if (dialogue.action === "edit-note") {
+    modalContent.innerHTML = `<form data-action-type="edit-note" data-note="${dialogue.index}">
+        <div class="field">
+            <label for="note-title">Title</label>
+            <input id="note-title" name="title" type="text" maxlength="40" value="${dialogue.title}" required>
+        </div>
+        <div class="field">
+            <label for="note-content">Note</label>
+            <textarea name="note" id="note-content">${dialogue.note}</textarea>
+        </div>
+        <button type="submit">Save</button>
+      </form>`;
   }
   openModal();
 }
