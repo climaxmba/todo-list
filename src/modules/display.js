@@ -5,8 +5,7 @@ const homePage = document.getElementById("home-page"),
   createBtn = document.getElementById("newbtn"),
   projectsPage = document.getElementById("projects-page"),
   notesPage = document.getElementById("notes-page"),
-  checkListPage = document.getElementById("checklist-page"),
-  pages = [homePage, projectsPage, notesPage, checkListPage],
+  pages = [homePage, projectsPage, notesPage],
   modal = document.getElementById("modal"),
   modalTitle = document.getElementById("modal-title"),
   modalContent = document.getElementById("modal-content");
@@ -98,11 +97,6 @@ function swithTab(e) {
       notesPage.classList.add("active-page");
       createBtn.textContent = "New Note";
       createBtn.setAttribute("data-dialogue", "note");
-      break;
-    case "checklists":
-      checkListPage.classList.add("active-page");
-      createBtn.textContent = "New Item";
-      createBtn.setAttribute("data-dialogue", "item");
       break;
   }
 
@@ -223,10 +217,8 @@ function closeModal() {
 function renderData(data) {
   const projects = data.projects,
     notes = data.notes,
-    checkLists = data.checkLists,
     projectsContainer = projectsPage.querySelector(".projects-contr"),
     notesContainer = notesPage.querySelector("#notes-contr"),
-    checkListContainer = checkListPage.querySelector("#checklist-page-contr"),
     todaysTaskContr = homePage.querySelector(".projects-contr"),
     thisWeeksTasksContr = document
       .getElementById("this-week-contr")
@@ -234,7 +226,6 @@ function renderData(data) {
 
   projectsContainer.innerHTML = "";
   notesContainer.innerHTML = "";
-  checkListContainer.innerHTML = "";
   todaysTaskContr.innerHTML = "";
   thisWeeksTasksContr.innerHTML = "";
 
@@ -347,23 +338,6 @@ function renderData(data) {
     node.querySelector(".notecontent").textContent = notes[i].note;
 
     notesContainer.appendChild(node);
-  }
-  for (let i = 0; i < checkLists.length; i++) {
-    const node = document.createElement("li");
-    node.setAttribute("data-item", i.toString());
-
-    node.innerHTML = `<span>
-        <input data-action-type="check-item" type="checkbox" id="list${i}" class="actions">
-        <label for="list${i}"></label>
-    </span>
-    <svg data-action-type="delete-item" class="actions" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <title>Delete</title>
-        <path d="M14.12,10.47L12,12.59L9.87,10.47L8.46,11.88L10.59,14L8.47,16.12L9.88,17.53L12,15.41L14.12,17.53L15.53,16.12L13.41,14L15.53,11.88L14.12,10.47M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8,9H16V19H8V9Z" />
-    </svg>`;
-    node.querySelector(`label[for="list${i}"]`).textContent =
-      checkLists[i].listTxt;
-
-    checkListContainer.appendChild(node);
   }
 }
 
