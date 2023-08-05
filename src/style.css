@@ -315,15 +315,9 @@ svg.actions {
 /* Media query */
 @media (max-width: 680px) {
     body {
-        display: flex;
-        flex-direction: column;
+        display: block;
         margin: 1rem;
         padding: 0;
-    }
-    header {
-        justify-content: center;
-        align-items: center;
-        border-bottom: 1px solid var(--bgdark);
     }
     #sidebar {
         position: fixed;

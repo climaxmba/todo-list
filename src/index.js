@@ -2,6 +2,7 @@ import pubSub from "./modules/pubSub.js";
 import { Project, Task, Note } from "./modules/projectsTasks.js";
 import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal } from "./modules/display.js";
 import Storage from "./modules/storage.js";
+import "./style.css";
 
 const displayController = (function() {
   _init();
