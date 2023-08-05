@@ -99,6 +99,11 @@ button:active {
     flex-direction: column;
     gap: 5px;
 }
+#home-page .empty-content {
+    font-style: italic;
+    padding-left: var(--largepad);
+    font-size: large;
+}
 .project-name {
     font-size: large;
     font-weight: bold;
@@ -108,7 +113,7 @@ button:active {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 8px;
 }
-.projects-contr > div {
+.projects-contr > div:not(.empty-content) {
     border-radius: var(--mediumrad);
     padding: var(--mediumpad);
     box-shadow: var(--shadow);

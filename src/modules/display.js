@@ -329,6 +329,10 @@ function renderData(data) {
 
     projectsContainer.appendChild(projectNode);
   }
+  // If no tasks for today and this week
+  if (!todaysTaskContr.innerHTML) todaysTaskContr.innerHTML = "<div class='empty-content'>No tasks for today!</div>";
+  if (!thisWeeksTasksContr.innerHTML) thisWeeksTasksContr.innerHTML = "<div class='empty-content'>You are good to go for this week!</div>";
+
   for (let i = 0; i < notes.length; i++) {
     const node = document.createElement("div");
 
