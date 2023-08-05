@@ -21,7 +21,7 @@ html {
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     display: grid;
-    grid-template: minmax(120vh, 250%) / 70vw 1fr;
+    grid-template: auto minmax(120vh, 250%) / 70vw 1fr;
     gap: 1em;
     margin: 0;
     padding-left: 1rem;
@@ -69,6 +69,8 @@ button:active {
 #sidebar {
     background: var(--bgdark);
     color: var(--fglight);
+    grid-row: 1 / -1;
+    grid-column: 2 / -1;
 }
 #sidebar ul {
     list-style: none;
@@ -299,15 +301,30 @@ svg.actions {
 
 @media (max-width: 680px) {
     body {
-        display: unset;
+        display: flex;
+        flex-direction: column;
+        margin: 1rem;
+        padding: 0;
     }
-    #main {
-        padding: var(--largepad);
-    }
-    #menu-icon {
-        display: block;
+    header {
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid var(--bgdark);
     }
     #sidebar {
-        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 -1px 5px 0px #00000080;
+        background-color: var(--bglight);
+        color: var(--bgdark);
+    }
+    #sidebar > ul {
+        flex-direction: row;
+        font-size: small;
     }
 }
