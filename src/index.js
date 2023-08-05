@@ -4,7 +4,7 @@ import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, open
 import Storage from "./modules/storage.js";
 import "./style.css";
 
-const displayController = (function() {
+(function() {
   _init();
   
   function _init() {
