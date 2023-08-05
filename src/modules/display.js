@@ -152,7 +152,7 @@ function openDialogue(dialogue) {
           </div>
           <div class="field">
               <div>Priority</div>
-              <div class="task-lbl">${dialogue.priority}</div>
+              <div class="task-lbl-${dialogue.priority[0]}">${dialogue.priority}</div>
           </div>
       </div>`;
     modalContent.querySelector(
@@ -255,7 +255,7 @@ function renderData(data) {
         if (isToday(tasks[j].dueDate)) {
           const listElem = document.createElement("li");
           listElem.innerHTML = `<span class="flex-list-item">
-                                  <span class="flex-list-elem"><span class="task-name"></span><span class="task-lbl"></span></span>
+                                  <span class="flex-list-elem"><span class="task-name"></span><span class="task-lbl-${tasks[j].priority[0]}">${tasks[j].priority}</span></span>
                                   <span class="flex-list-elem" data-project="${i}" data-task="${j}">
                                     <svg data-action-type="view-task" class="actions" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>View info</title><path d="M13 9H11V7H13V9M13 17H11V11H13V17M5 3H19C20.1 3 21 3.89 21 5V19C21 19.53 20.79 20.04 20.41 20.41C20.04 20.79 19.53 21 19 21H5C4.47 21 3.96 20.79 3.59 20.41C3.21 20.04 3 19.53 3 19V5C3 3.89 3.89 3 5 3M19 19V5H5V19H19Z" /></svg>
                                     <svg data-action-type="edit-task" class="actions" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Edit</title><path d="M5,3C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19H5V5H12V3H5M17.78,4C17.61,4 17.43,4.07 17.3,4.2L16.08,5.41L18.58,7.91L19.8,6.7C20.06,6.44 20.06,6 19.8,5.75L18.25,4.2C18.12,4.07 17.95,4 17.78,4M15.37,6.12L8,13.5V16H10.5L17.87,8.62L15.37,6.12Z" /></svg>
@@ -263,7 +263,6 @@ function renderData(data) {
                                   </span>
                                 </span>`;
           listElem.querySelector(".task-name").textContent = tasks[j].title;
-          listElem.querySelector(".task-lbl").textContent = tasks[j].priority;
           elem.querySelector("ul").appendChild(listElem);
         }
       }
@@ -306,7 +305,7 @@ function renderData(data) {
     for (let j = 0; j < tasks.length; j++) {
       const taskNode = document.createElement("li");
       taskNode.className = "flex-list-item"
-      taskNode.innerHTML = `<span class="flex-list-elem"><span class="task-name"></span><span class="task-lbl"></span></span>
+      taskNode.innerHTML = `<span class="flex-list-elem"><span class="task-name"></span><span class="task-lbl-${tasks[j].priority[0]}">${tasks[j].priority}</span></span>
         <span data-project="${i}" data-task="${j}" class="flex-list-elem">
             <svg data-action-type="view-task" class="actions" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <title>View info</title>
@@ -322,7 +321,6 @@ function renderData(data) {
             </svg>
         </span>`;
       taskNode.querySelector(".task-name").textContent = tasks[j].title;
-      taskNode.querySelector(".task-lbl").textContent = tasks[j].priority;
       projectNode.querySelector("ul").appendChild(taskNode);
     }
 

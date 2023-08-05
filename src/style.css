@@ -149,13 +149,14 @@ button:active {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.task-lbl {
+.task-lbl-l,
+.task-lbl-m,
+.task-lbl-h {
     text-transform: uppercase;
     font-size: x-small;
     letter-spacing: 1px;
     padding: var(--smallpad);
     color: var(--fgdark);
-    background-color: var(--prty-medium);
     border-radius: var(--smallrad);
     border: 1px solid;
 }
@@ -292,12 +293,15 @@ svg.actions {
     border-radius: var(--smallrad);
     border: 1px solid;
 }
+.task-lbl-h,
 #modal-content input[type="radio"]:checked ~ label[for="task-priority-h"] {
     background-color: var(--prty-high);
 }
+.task-lbl-m,
 #modal-content input[type="radio"]:checked ~ label[for="task-priority-m"] {
     background-color: var(--prty-medium);
 }
+.task-lbl-l,
 #modal-content input[type="radio"]:checked ~ label[for|="task-priority-l"] {
     background-color: var(--prty-low);
 }
@@ -308,7 +312,9 @@ svg.actions {
 #details .field > div:first-child {
     font-weight: bold;
 }
-#details .task-lbl {
+#details .task-lbl-h,
+#details .task-lbl-l,
+#details .task-lbl-m {
     align-self: flex-start;
 }
 
