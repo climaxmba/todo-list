@@ -194,6 +194,8 @@ svg.actions {
 .notecontent {
     padding: var(--mediumpad);
     margin: 1rem 0;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 /* modal */
@@ -299,6 +301,7 @@ svg.actions {
     align-self: flex-start;
 }
 
+/* Media query */
 @media (max-width: 680px) {
     body {
         display: flex;
