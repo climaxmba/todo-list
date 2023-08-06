@@ -6,7 +6,8 @@ const homePage = document.getElementById("home-page"),
   createBtn = document.getElementById("newbtn"),
   projectsPage = document.getElementById("projects-page"),
   notesPage = document.getElementById("notes-page"),
-  pages = [homePage, projectsPage, notesPage],
+  morePage = document.getElementById("more-page"),
+  pages = [homePage, projectsPage, notesPage, morePage],
   modal = document.getElementById("modal"),
   modalTitle = document.getElementById("modal-title"),
   modalContent = document.getElementById("modal-content");
@@ -99,6 +100,8 @@ function swithTab(e) {
       createBtn.textContent = "New Note";
       createBtn.setAttribute("data-dialogue", "note");
       break;
+    case "more":
+      morePage.classList.add("active-page");
   }
 
   document.title = "TodoList - " + target[0].toUpperCase() + target.slice(1);
