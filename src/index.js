@@ -92,7 +92,9 @@ import "./style.css";
           const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
           pubSub.publish("deleteEntity", { action, pindex, tindex });
         } else {
-          const index = parseInt(elem.parentElement.getAttribute("data-task"));
+          const index =
+            parseInt(elem.parentElement.getAttribute("data-project")) ||
+            parseInt(elem.parentElement.getAttribute("data-note"));
           pubSub.publish("deleteEntity", { action, index });
         }
       } else if (action.includes("view")) {
