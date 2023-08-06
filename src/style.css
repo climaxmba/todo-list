@@ -41,6 +41,9 @@ header {
 header h1 {
     margin: 0;
 }
+#menu-icon {
+    display: none;
+}
 button {
     cursor: pointer;
     padding: calc(var(--mediumpad) + 3px);
@@ -334,7 +337,13 @@ svg.actions {
         margin: 1rem;
         padding: 0;
     }
+    #menu-icon {
+        display: unset;
+    }
     #sidebar {
+        display: none;
+    }
+    header[data-menu-active] ~ #sidebar {
         position: fixed;
         bottom: 0;
         left: 0;

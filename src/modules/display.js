@@ -1,6 +1,7 @@
 import { isToday, isTomorrow, parseISO, lightFormat } from "date-fns";
 
 const homePage = document.getElementById("home-page"),
+  menuIcon = document.getElementById("menu-icon"),
   tabs = document.querySelectorAll(".tabs"),
   createBtn = document.getElementById("newbtn"),
   projectsPage = document.getElementById("projects-page"),
@@ -117,6 +118,9 @@ function invokeAction(e, elem) {
     openDialogue({ action });
   } else if (elem === modal) {
     closeModal();
+  }
+  if (elem === menuIcon) {
+    menuIcon.parentElement.toggleAttribute("data-menu-active");
   }
 
   e.stopPropagation();
@@ -354,4 +358,4 @@ function renderData(data) {
   }
 }
 
-export { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal };
+export { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal };

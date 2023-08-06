@@ -1,6 +1,6 @@
 import pubSub from "./modules/pubSub.js";
 import { Project, Task, Note } from "./modules/projectsTasks.js";
-import { tabs, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal } from "./modules/display.js";
+import { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal } from "./modules/display.js";
 import Storage from "./modules/storage.js";
 import "./style.css";
 
@@ -13,6 +13,7 @@ import "./style.css";
 
   function addEventsToStaticElements() {
     tabs.forEach((elem) => elem.addEventListener("click", swithTab));
+    menuIcon.addEventListener("click", invokeActions);
     createBtn.addEventListener('click', invokeActions);
     modal.addEventListener('click', invokeActions);
     pages.forEach(page => {
