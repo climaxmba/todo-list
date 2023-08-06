@@ -15,29 +15,29 @@ const modalForms = {
   "new-project": `<form data-action-type="new-project">
       <div class="field">
           <label for="project-title">Title</label>
-          <input id="project-title" name="title" type="text" maxlength="40" required>
+          <input id="project-title" name="title" type="text" maxlength="40" placeholder="Enter project's title" required>
       </div>
       <button type="submit">Save</button>
     </form>`,
   "new-note": `<form data-action-type="new-note">
     <div class="field">
         <label for="note-title">Title</label>
-        <input id="note-title" name="title" type="text" maxlength="40" required>
+        <input id="note-title" name="title" type="text" maxlength="40" placeholder="Enter note title" required>
     </div>
     <div class="field">
         <label for="note-content">Note</label>
-        <textarea name="note" id="note-content"></textarea>
+        <textarea name="note" id="note-content" placeholder="Your note goes here"></textarea>
     </div>
     <button type="submit">Save</button>
     </form>`,
   "new-task": `<form data-action-type="new-task">
     <div class="field">
         <label for="task-title">Title</label>
-        <input id="task-title" name="title" type="text" maxlength="35" required>
+        <input id="task-title" name="title" type="text" maxlength="35" placeholder="e.g: Sumbit feedback form" required>
     </div>
     <div class="field">
         <label for="task-description">Description</label>
-        <textarea name="description" id="task-description"></textarea>
+        <textarea name="description" id="task-description" placeholder="Give a brief descripltion of the task"></textarea>
     </div>
     <div class="field">
         <label for="task-duedate">Due date</label>
