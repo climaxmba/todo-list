@@ -102,6 +102,7 @@ function swithTab(e) {
   }
 
   document.title = "TodoList - " + target[0].toUpperCase() + target.slice(1);
+  toggleMenu();
 }
 
 function invokeAction(e, elem) {
@@ -120,7 +121,7 @@ function invokeAction(e, elem) {
     closeModal();
   }
   if (elem === menuIcon) {
-    menuIcon.parentElement.toggleAttribute("data-menu-active");
+    toggleMenu();
   }
 
   e.stopPropagation();
@@ -228,6 +229,10 @@ function openModal() {
 function closeModal() {
   modalContent.innerHTML = "";
   modal.classList.remove("active");
+}
+
+function toggleMenu() {
+  menuIcon.parentElement.toggleAttribute("data-menu-active");
 }
 
 function renderData(data) {

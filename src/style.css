@@ -1,8 +1,7 @@
 /* General */
 @font-face {
     font-family: 'WorkSans';
-    src: url('./fonts/WorkSans-VariableFont_wght.ttf') format('truetype'),
-        url('./fonts/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+    src: url('./fonts/WorkSans-VariableFont_wght.ttf') format('truetype');
 }
 
 html {
@@ -333,12 +332,23 @@ svg.actions {
 /* Media query */
 @media (max-width: 680px) {
     body {
-        display: block;
+        display: flex;
+        flex-direction: column;
         margin: 1rem;
+        gap: 2rem;
         padding: 0;
     }
     #menu-icon {
         display: unset;
+    }
+    header[data-menu-active] #menu-icon {
+        background-color: var(--bgdark);
+        fill: var(--fglight);
+        border-radius: 50%;
+        padding: var(--smallpad);
+    }
+    .projects-contr {
+        gap: 1rem;
     }
     #sidebar {
         display: none;
@@ -352,8 +362,6 @@ svg.actions {
         justify-content: center;
         align-items: center;
         box-shadow: 0 -1px 5px 0px #00000080;
-        background-color: var(--bglight);
-        color: var(--bgdark);
     }
     #sidebar > ul {
         flex-direction: row;
