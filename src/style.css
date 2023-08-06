@@ -1,4 +1,10 @@
 /* General */
+@font-face {
+    font-family: 'WorkSans';
+    src: url('./fonts/WorkSans-VariableFont_wght.ttf') format('truetype'),
+        url('./fonts/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
 html {
     --largepad: 15px;
     --mediumpad: 8px;
@@ -19,7 +25,7 @@ html {
     box-sizing: border-box;
 }
 body {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'WorkSans', 'Open Sans', sans-serif;
     display: grid;
     grid-template: auto minmax(120vh, 250%) / 70vw 1fr;
     gap: 1em;
@@ -264,11 +270,11 @@ svg.actions {
 #modal-content input,
 #modal-content textarea {
     cursor: pointer;
+    font-family: 'WorkSans';
     padding: var(--smallpad) var(--mediumpad);
     margin: 0 0.2rem;
     border: none;
     border-bottom: 1px solid;
-    letter-spacing: 1px;
 }
 #modal-content textarea {
     border: 1px solid;
@@ -310,7 +316,10 @@ svg.actions {
     gap: 0.5rem;
 }
 #details .field > div:first-child {
-    font-weight: bold;
+    letter-spacing: 1px;
+}
+#details .field > div:last-child {
+    font-weight: 500;
 }
 #details .task-lbl-h,
 #details .task-lbl-l,
