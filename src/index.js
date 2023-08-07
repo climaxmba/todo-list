@@ -1,6 +1,6 @@
 import pubSub from "./modules/pubSub.js";
 import { Project, Task, Note } from "./modules/projectsTasks.js";
-import { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal } from "./modules/display.js";
+import { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, openConfirmDialogue, closeModal } from "./modules/display.js";
 import Storage from "./modules/storage.js";
 import "./style.css";
 
@@ -86,16 +86,32 @@ import "./style.css";
     } else if (elem.getAttribute("data-action-type")) {
       // Data read manipulation actions
       const action = elem.getAttribute("data-action-type");
-      if (action.includes("delete")) {
+
+      if (action.includes("delete") && elem.hasAttribute("data-confirm-delete")) {
+        // Delete action confirmed
         if (action === "delete-task") {
           const pindex = parseInt(elem.parentElement.getAttribute("data-project"));
           const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
           pubSub.publish("deleteEntity", { action, pindex, tindex });
+          closeModal();
         } else {
           const index =
             parseInt(elem.parentElement.getAttribute("data-project")) ||
             parseInt(elem.parentElement.getAttribute("data-note"));
           pubSub.publish("deleteEntity", { action, index });
+          closeModal();
+        }
+      } else if (action.includes("delete")) {
+        // Open confirm dialogue for delete icons
+        if (action === "delete-task") {
+          const pindex = parseInt(elem.parentElement.getAttribute("data-project"));
+          const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
+          openConfirmDialogue({ action, pindex, tindex });
+        } else {
+          const index =
+            parseInt(elem.parentElement.getAttribute("data-project")) ||
+            parseInt(elem.parentElement.getAttribute("data-note"));
+            openConfirmDialogue({ action, index });
         }
       } else if (action.includes("view")) {
         if (action === "view-task") {
@@ -149,6 +165,8 @@ import "./style.css";
             note: projectsHandler.getNote(index).note,
           })
         }
+      } else if (action === "reset-data") {
+        pubSub.publish("resetDataActionConfirmed");
       }
     }
   }

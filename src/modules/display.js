@@ -1,4 +1,5 @@
 import { isToday, isTomorrow, parseISO, lightFormat } from "date-fns";
+import pubSub from "./pubSub.js";
 
 const homePage = document.getElementById("home-page"),
   menuIcon = document.getElementById("menu-icon"),
@@ -111,6 +112,10 @@ function swithTab(e) {
 function invokeAction(e, elem) {
   if (e.target !== e.currentTarget) {
     if (elem.id === "close-modal") {
+      closeModal();
+    } else if (elem.id === "reset-btn") {
+      openConfirmDialogue({ action: "reset" });
+    } else if (elem.id === "cancel-btn") {
       closeModal();
     } else if (elem.getAttribute("data-action-type") === "new-task") {
       const action = elem.getAttribute("data-action-type");
@@ -226,6 +231,32 @@ function openDialogue(dialogue) {
   }
   openModal();
 }
+function openConfirmDialogue(dialogue) {
+  if (dialogue.action === "reset") {
+    modalTitle.textContent = "Are you sure you want to reset?";
+    modalContent.innerHTML = `<div id="confirm">
+          <button id="delete-btn" type="button" data-action-type="reset-data">Reset</button>
+          <button id="cancel-btn" type="button">Cancel</button>
+      </div>`;
+  } else if (dialogue.action.includes("delete")) {
+    modalTitle.textContent = "Are you sure you want to delete?"
+    modalContent.innerHTML = `<div id="confirm">
+          <button id="delete-btn" data-confirm-delete data-action-type="${dialogue.action}" type="button">Delete</button>
+          <button id="cancel-btn" type="button">Cancel</button>
+      </div>`;
+    const parent = modalContent.querySelector("#confirm");
+
+    if (dialogue.action === "delete-task") {
+      parent.setAttribute("data-project", dialogue.pindex);
+      parent.setAttribute("data-task", dialogue.tindex);
+    } else {
+      parent.setAttribute(`data${dialogue.action.slice(6)}`, dialogue.index);
+    }
+  }
+
+  openModal();
+}
+
 function openModal() {
   modal.classList.add("active");
 }
@@ -366,4 +397,4 @@ function renderData(data) {
   }
 }
 
-export { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, closeModal };
+export { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, openConfirmDialogue, closeModal };

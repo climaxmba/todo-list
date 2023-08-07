@@ -235,7 +235,6 @@ svg.actions {
     cursor: pointer;
 }
 #reset-btn {
-    border-radius: var(--smallrad);
     background-color: var(--dangerbgcolor);
 }
 #reset-btn:active {
@@ -335,7 +334,7 @@ svg.actions {
     background-color: var(--prty-medium);
 }
 .task-lbl-l,
-#modal-content input[type="radio"]:checked ~ label[for|="task-priority-l"] {
+#modal-content input[type="radio"]:checked ~ label[for="task-priority-l"] {
     background-color: var(--prty-low);
 }
 #radio-btns-cntr {
@@ -352,6 +351,18 @@ svg.actions {
 #details .task-lbl-l,
 #details .task-lbl-m {
     align-self: flex-start;
+}
+div#confirm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+#delete-btn {
+    background-color: var(--dangerbgcolor);
+}
+#delete-btn:active {
+    color: var(--dangerbgcolor);
+    background-color: transparent;
 }
 
 /* Media query */

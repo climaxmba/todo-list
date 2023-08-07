@@ -25,6 +25,7 @@ const Storage = (function () {
   };
   
   pubSub.subscribe("dataChanged", saveChanges);
+  pubSub.subscribe("resetDataActionConfirmed", clearData);
 
   if (!localStorage.getItem("hasVisitedSiteBefore")) {
     localStorage.setItem("hasVisitedSiteBefore", "true");
@@ -67,6 +68,11 @@ const Storage = (function () {
     }
 
     localStorage.setItem("savedData", JSON.stringify(savedData));
+  }
+  
+  function clearData() {
+    localStorage.clear();
+    location.reload();
   }
 
   function getData() {
