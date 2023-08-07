@@ -5,11 +5,11 @@ const Storage = (function () {
   let savedData = JSON.parse(localStorage.getItem("savedData")) || {
     projects: [
       {
-        title: "TodoList tutorial",
+        title: "Inbox",
         tasks: [
           {
             title: "Try out this application",
-            description: " ",
+            description: "Read 'Welcome to TodoList' in the notes page",
             dueDate: new Date().toISOString(),
             priority: "medium",
           },
@@ -18,8 +18,8 @@ const Storage = (function () {
     ],
     notes: [
       {
-        title: "How to use this TodoList",
-        note: "Click the new project button and add new project",
+        title: "Welcome to TodoList",
+        note: "On this page, you can write notes.\nThe homepage shows projects and tasks due for today and projects due for the week, you can view and manipulate projects in projects page.\nIn 'More' you can view the 'About' section and 'Settings'.",
       },
     ],
   };
