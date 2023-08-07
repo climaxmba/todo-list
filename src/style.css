@@ -108,7 +108,7 @@ button:active {
     flex-direction: column;
     gap: 5px;
 }
-#home-page .empty-content {
+.empty-content {
     font-style: italic;
     padding-left: var(--largepad);
     font-size: large;

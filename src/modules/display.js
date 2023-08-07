@@ -367,6 +367,8 @@ function renderData(data) {
       projectNode.querySelector("ul").appendChild(taskNode);
     }
 
+    // Empty project
+    if (!projectNode.querySelector("ul").innerHTML) projectNode.querySelector("ul").innerHTML = "<li class='empty-content'>This project is empty, click 'Add Task' to add a new task</li>";
     projectsContainer.appendChild(projectNode);
   }
   // If no tasks for today and this week
