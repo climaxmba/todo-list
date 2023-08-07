@@ -402,5 +402,6 @@ div#confirm {
     #sidebar > ul {
         flex-direction: row;
         font-size: small;
+        margin: 1.5rem 0;
     }
 }
