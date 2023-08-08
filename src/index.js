@@ -1,6 +1,7 @@
+import {isToday, isPast} from "date-fns";
 import pubSub from "./modules/pubSub.js";
 import { Project, Task, Note } from "./modules/projectsTasks.js";
-import { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, openConfirmDialogue, closeModal } from "./modules/display.js";
+import { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, openDialogue, openConfirmDialogue, closeModal } from "./modules/display.js";
 import Storage from "./modules/storage.js";
 import "./style.css";
 
@@ -37,6 +38,11 @@ import "./style.css";
       const form = elem.parentElement;
       const data = Object.fromEntries(new FormData(form));
       let isValid = Object.values(data).every((entry) => entry);
+      if (data.dueDate && (isPast(new Date(data.dueDate)) && !isToday(new Date(data.dueDate)))) {
+        // Error message: "No past date allowed!"
+        console.log("No past date allowed!");
+        return;
+      }
 
       if (isValid) {
         const action = form.getAttribute("data-action-type");
@@ -170,8 +176,6 @@ import "./style.css";
       }
     }
   }
-
-  pubSub.subscribe("dataChanged", renderData);
 })()
 
 const projectsHandler = (function () {

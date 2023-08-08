@@ -1,5 +1,6 @@
 import { isToday, isTomorrow, parseISO, lightFormat } from "date-fns";
 import pubSub from "./pubSub.js";
+import noProjectsImg from "../img/noprojects.png";
 
 const homePage = document.getElementById("home-page"),
   menuIcon = document.getElementById("menu-icon"),
@@ -11,7 +12,14 @@ const homePage = document.getElementById("home-page"),
   pages = [homePage, projectsPage, notesPage, morePage],
   modal = document.getElementById("modal"),
   modalTitle = document.getElementById("modal-title"),
-  modalContent = document.getElementById("modal-content");
+  modalContent = document.getElementById("modal-content"),
+  img = new Image();
+
+(function() {
+  pubSub.subscribe("dataChanged", renderData);
+  img.src = noProjectsImg;
+})()
+
 
 const modalForms = {
   "new-project": `<form data-action-type="new-project">
@@ -372,8 +380,11 @@ function renderData(data) {
     projectsContainer.appendChild(projectNode);
   }
   // If no tasks for today and this week
-  if (!todaysTaskContr.innerHTML) todaysTaskContr.innerHTML = "<div class='empty-content'>No tasks for today!</div>";
-  if (!thisWeeksTasksContr.innerHTML) thisWeeksTasksContr.innerHTML = "<div class='empty-content'>You are good to go for this week!</div>";
+  if (!todaysTaskContr.innerHTML) todaysTaskContr.innerHTML = "<div class='empty-content'>🎊 No tasks for today!</div>";
+  if (!thisWeeksTasksContr.innerHTML) {
+    thisWeeksTasksContr.innerHTML = "<div class='empty-content'>You are good to go for this week!</div>";
+    thisWeeksTasksContr.querySelector(".empty-content").appendChild(img);
+  } 
 
   for (let i = 0; i < notes.length; i++) {
     const node = document.createElement("div");
@@ -399,4 +410,4 @@ function renderData(data) {
   }
 }
 
-export { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, renderData, openDialogue, openConfirmDialogue, closeModal };
+export { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, openDialogue, openConfirmDialogue, closeModal };

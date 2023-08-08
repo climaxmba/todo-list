@@ -109,9 +109,15 @@ button:active {
     gap: 5px;
 }
 .empty-content {
-    font-style: italic;
     padding-left: var(--largepad);
     font-size: large;
+}
+.empty-content img {
+    display: block;
+    max-width: 50%;
+}
+li.empty-content {
+    margin: 1rem 0;
 }
 .project-name {
     font-size: large;
