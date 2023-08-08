@@ -261,6 +261,15 @@ svg.actions {
     background-color: #00000030;
     z-index: 10;
 }
+#modal-message {
+    display: none;
+}
+#modal-message.active {
+    display: block;
+    background-color: #ffb9b9;
+    padding: var(--mediumpad);
+    border-radius: var(--smallrad);
+}
 #modal-box {
     box-shadow: 0 0 5px 3px #00000020;
     background-color: var(--bglight);
@@ -369,6 +378,9 @@ div#confirm {
 #delete-btn:active {
     color: var(--dangerbgcolor);
     background-color: transparent;
+}
+button:disabled {
+    opacity: 0.5;
 }
 
 /* Media query */

@@ -1,4 +1,4 @@
-import { isToday, isTomorrow, parseISO, lightFormat } from "date-fns";
+import { isToday, isPast, isTomorrow, parseISO, lightFormat, isValid, } from "date-fns";
 import pubSub from "./pubSub.js";
 import noProjectsImg from "../img/noprojects.png";
 
@@ -12,13 +12,48 @@ const homePage = document.getElementById("home-page"),
   pages = [homePage, projectsPage, notesPage, morePage],
   modal = document.getElementById("modal"),
   modalTitle = document.getElementById("modal-title"),
+  modalMessage = document.getElementById("modal-message"),
   modalContent = document.getElementById("modal-content"),
   img = new Image();
 
 (function() {
-  pubSub.subscribe("dataChanged", renderData);
-  img.src = noProjectsImg;
+  _init();
+
+  function _init() {
+    pubSub.subscribe("dataChanged", renderData);
+    img.src = noProjectsImg;
+    modal.addEventListener("keyup", validateForm);
+    modal.addEventListener("change", validateForm);
+  }
+
+  function validateForm() {
+    const data = Object.fromEntries(new FormData(modalContent.children[0]));
+    let isValid = Object.values(data).every((entry) => entry);
+  
+    if (data) {
+      if (!isValid) {
+        openModalMessage("All inputs must be filled appropriately");
+        return;
+      } else if (data.dueDate && (isPast(new Date(data.dueDate)) && !isToday(new Date(data.dueDate)))) {
+        // Reject past dates
+        openModalMessage("Past dates are not allowed!");
+        return;
+      }
+      closeModalMessage();
+    }
+  }
+  function openModalMessage(message) {
+    modalMessage.textContent = message;
+    modalMessage.classList.add("active");
+    modalContent.querySelector("button[type='submit']").disabled = true;
+  }
+  function closeModalMessage() {
+    modalMessage.innerHTML = "";
+    modalMessage.classList.remove("active");
+    modalContent.querySelector("button[type='submit']").disabled = false;
+  }
 })()
+
 
 
 const modalForms = {
@@ -61,7 +96,7 @@ const modalForms = {
                 <label for="task-priority-h">High</label>
             </span>
             <span>
-                <input id="task-priority-m" name="priority" type="radio" value="medium" required>
+                <input id="task-priority-m" name="priority" type="radio" value="medium" checked required>
                 <label for="task-priority-m">Medium</label>
             </span>
             <span>
@@ -380,7 +415,7 @@ function renderData(data) {
     projectsContainer.appendChild(projectNode);
   }
   // If no tasks for today and this week
-  if (!todaysTaskContr.innerHTML) todaysTaskContr.innerHTML = "<div class='empty-content'>🎊 No tasks for today!</div>";
+  if (!todaysTaskContr.innerHTML) todaysTaskContr.innerHTML = "<div class='empty-content'>🎉 No tasks for today!</div>";
   if (!thisWeeksTasksContr.innerHTML) {
     thisWeeksTasksContr.innerHTML = "<div class='empty-content'>You are good to go for this week!</div>";
     thisWeeksTasksContr.querySelector(".empty-content").appendChild(img);
