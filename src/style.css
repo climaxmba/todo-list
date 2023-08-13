@@ -31,6 +31,8 @@ body {
     gap: 1em;
     margin: 0;
     padding-left: 1rem;
+    background-color: var(--bglight);
+    color: var(--fgdark);
 }
 header {
     display: flex;
@@ -60,8 +62,6 @@ button:active {
     padding: 0.5rem 1.5rem;
     border-radius: var(--largerad);
     cursor: pointer;
-    background: var(--bgdark);
-    color: var(--fglight);
     border: none;
     font-weight: bold;
     box-shadow: var(--shadow);
@@ -175,10 +175,11 @@ li.empty-content {
     border-radius: var(--smallrad);
     border: 1px solid;
 }
-svg.actions {
+svg {
     height: 1.5rem;
     width: 1.5rem;
     cursor: pointer;
+    fill: var(--fgdark);
 }
 #this-week-contr ul {
     display: grid;
@@ -316,6 +317,8 @@ svg.actions {
     margin: 0 0.2rem;
     border: none;
     border-bottom: 1px solid;
+    color: var(--fgdark);
+    background-color: transparent;
 }
 #modal-content textarea {
     border: 1px solid;
@@ -421,5 +424,31 @@ button:disabled {
         flex-direction: row;
         font-size: small;
         margin: 1.5rem 0;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    html {
+        --bglight: #3d3d3d;
+        --fglight: black;
+        --fgdark: #dadada;
+    }
+    #home-page h2:first-child,
+    #more-page h2 {
+        color: var(--fgdark);
+    }
+    button {
+        color: var(--fgdark);
+    }
+    #modal-content input[type="radio"]:checked ~ label[for|="task-priority"],
+    .task-lbl-h,
+    .task-lbl-l,
+    .task-lbl-m {
+        color: var(--fglight);
+    }
+    #modal-message.active {
+        background-color: var(--dangerbgcolor);
+    }
+    #sidebar {
+        color: var(--fgdark);
     }
 }
