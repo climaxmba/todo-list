@@ -15,6 +15,7 @@ const homePage = document.getElementById("home-page"),
   modalMessage = document.getElementById("modal-message"),
   modalContent = document.getElementById("modal-content"),
   img = new Image();
+let darkTheme;
 
 (function() {
   _init();
@@ -24,6 +25,8 @@ const homePage = document.getElementById("home-page"),
     img.src = noProjectsImg;
     modal.addEventListener("keyup", validateForm);
     modal.addEventListener("change", validateForm);
+    darkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (darkTheme) switchTheme();
   }
 
   function validateForm() {
@@ -158,6 +161,8 @@ function invokeAction(e, elem) {
       closeModal();
     } else if (elem.id === "reset-btn") {
       openConfirmDialogue({ action: "reset" });
+    } else if (elem.id === "theme-btn") {
+      switchTheme();
     } else if (elem.id === "cancel-btn") {
       closeModal();
     } else if (elem.getAttribute("data-action-type") === "new-task") {
@@ -176,6 +181,11 @@ function invokeAction(e, elem) {
   }
 
   e.stopPropagation();
+}
+
+function switchTheme() {
+  document.body.setAttribute("data-theme-dark", darkTheme);
+  darkTheme = !darkTheme;
 }
 
 function openDialogue(dialogue) {

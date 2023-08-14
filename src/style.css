@@ -4,6 +4,9 @@
     src: url('./fonts/WorkSans-VariableFont_wght.ttf') format('truetype');
 }
 
+* {
+    box-sizing: border-box;
+}
 html {
     --largepad: 15px;
     --mediumpad: 8px;
@@ -12,17 +15,16 @@ html {
     --mediumrad: 8px;
     --largerad: 15px;
     --shadow: 0px 1px 5px 0px #00000080;
-    --bgdark: royalblue;
-    --bglight: white;
-    --fglight: white;
-    --fgdark: black;
     --dangerbgcolor: #c54949;
     --prty-high: #ffcdc1;
     --prty-medium: #fff19f;
     --prty-low: #cbffce;
+    --bgdark: royalblue;
 }
-* {
-    box-sizing: border-box;
+body[data-theme-dark="false"] {
+    --bglight: white;
+    --fglight: white;
+    --fgdark: black;
 }
 body {
     font-family: 'WorkSans', 'Open Sans', sans-serif;
@@ -386,6 +388,32 @@ button:disabled {
     opacity: 0.5;
 }
 
+/* Dark theme */
+body[data-theme-dark="true"] {
+    --bglight: #3d3d3d;
+    --fglight: black;
+    --fgdark: #e0e0e0;
+}
+body[data-theme-dark="true"] #home-page h2:first-child,
+body[data-theme-dark="true"] #more-page h2 {
+    color: var(--fgdark);
+}
+body[data-theme-dark="true"] button {
+    color: var(--fgdark);
+}
+body[data-theme-dark="true"] #modal-content input[type="radio"]:checked~label[for|="task-priority"],
+body[data-theme-dark="true"] .task-lbl-h,
+body[data-theme-dark="true"] .task-lbl-l,
+body[data-theme-dark="true"] .task-lbl-m {
+    color: var(--fglight);
+}
+body[data-theme-dark="true"] #modal-message.active {
+    background-color: var(--dangerbgcolor);
+}
+body[data-theme-dark="true"] #sidebar {
+    color: var(--fgdark);
+}
+
 /* Media query */
 @media (max-width: 680px) {
     body {
@@ -424,31 +452,5 @@ button:disabled {
         flex-direction: row;
         font-size: small;
         margin: 1.5rem 0;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    html {
-        --bglight: #3d3d3d;
-        --fglight: black;
-        --fgdark: #dadada;
-    }
-    #home-page h2:first-child,
-    #more-page h2 {
-        color: var(--fgdark);
-    }
-    button {
-        color: var(--fgdark);
-    }
-    #modal-content input[type="radio"]:checked ~ label[for|="task-priority"],
-    .task-lbl-h,
-    .task-lbl-l,
-    .task-lbl-m {
-        color: var(--fglight);
-    }
-    #modal-message.active {
-        background-color: var(--dangerbgcolor);
-    }
-    #sidebar {
-        color: var(--fgdark);
     }
 }
