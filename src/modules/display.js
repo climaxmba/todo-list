@@ -1,4 +1,4 @@
-import { isToday, isPast, isTomorrow, parseISO, lightFormat, isValid, } from "date-fns";
+import { isToday, isPast, isTomorrow, parseISO, lightFormat } from "date-fns";
 import pubSub from "./pubSub.js";
 import noProjectsImg from "../img/noprojects.png";
 
@@ -15,7 +15,6 @@ const homePage = document.getElementById("home-page"),
   modalMessage = document.getElementById("modal-message"),
   modalContent = document.getElementById("modal-content"),
   img = new Image();
-let darkTheme;
 
 (function() {
   _init();
@@ -25,8 +24,6 @@ let darkTheme;
     img.src = noProjectsImg;
     modal.addEventListener("keyup", validateForm);
     modal.addEventListener("change", validateForm);
-    darkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (darkTheme) switchTheme();
   }
 
   function validateForm() {
@@ -161,9 +158,7 @@ function invokeAction(e, elem) {
       closeModal();
     } else if (elem.id === "reset-btn") {
       openConfirmDialogue({ action: "reset" });
-    } else if (elem.id === "theme-btn") {
-      switchTheme();
-    } else if (elem.id === "cancel-btn") {
+    }else if (elem.id === "cancel-btn") {
       closeModal();
     } else if (elem.getAttribute("data-action-type") === "new-task") {
       const action = elem.getAttribute("data-action-type");
@@ -181,11 +176,6 @@ function invokeAction(e, elem) {
   }
 
   e.stopPropagation();
-}
-
-function switchTheme() {
-  document.body.setAttribute("data-theme-dark", darkTheme);
-  darkTheme = !darkTheme;
 }
 
 function openDialogue(dialogue) {

@@ -4,21 +4,39 @@ import { tabs, menuIcon, createBtn, modal, pages, swithTab, invokeAction, openDi
 import Storage from "./modules/storage.js";
 import "./style.css";
 
-(function() {
+(function () {
+  let darkTheme;
   _init();
-  
+
   function _init() {
     addEventsToStaticElements();
+
+    const userThemeDark = Storage.userThemeDark();
+    if (userThemeDark !== null) {
+      darkTheme = userThemeDark;
+    } else {
+      darkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    changeTheme(darkTheme);
   }
 
   function addEventsToStaticElements() {
     tabs.forEach((elem) => elem.addEventListener("click", swithTab));
     menuIcon.addEventListener("click", invokeActions);
-    createBtn.addEventListener('click', invokeActions);
-    modal.addEventListener('click', invokeActions);
-    pages.forEach(page => {
-      page.addEventListener('click', invokeActions);
+    createBtn.addEventListener("click", invokeActions);
+    modal.addEventListener("click", invokeActions);
+    pages.forEach((page) => {
+      page.addEventListener("click", invokeActions);
     });
+  }
+  function changeTheme(isDark) {
+    if (isDark !== undefined) {
+      darkTheme = isDark;
+    } else {
+      darkTheme = !darkTheme;
+    }
+    document.body.setAttribute("data-theme-dark", darkTheme);
+    pubSub.publish("themeChoiceChanged", darkTheme);
   }
 
   function invokeActions(e) {
@@ -69,7 +87,7 @@ import "./style.css";
               data.description,
               new Date(data.dueDate),
               data.priority ? data.priority : "medium",
-              parseInt(form.getAttribute("data-project")),
+              parseInt(form.getAttribute("data-project"))
             ),
           };
         } else if (action === "edit-note") {
@@ -83,14 +101,21 @@ import "./style.css";
         closeModal();
         pubSub.publish("formSubmitted", entry);
       }
+    } else if (elem.id === "theme-btn") {
+      changeTheme();
     } else if (elem.getAttribute("data-action-type")) {
       // Data read manipulation actions
       const action = elem.getAttribute("data-action-type");
 
-      if (action.includes("delete") && elem.hasAttribute("data-confirm-delete")) {
+      if (
+        action.includes("delete") &&
+        elem.hasAttribute("data-confirm-delete")
+      ) {
         // Delete action confirmed
         if (action === "delete-task") {
-          const pindex = parseInt(elem.parentElement.getAttribute("data-project"));
+          const pindex = parseInt(
+            elem.parentElement.getAttribute("data-project")
+          );
           const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
           pubSub.publish("deleteEntity", { action, pindex, tindex });
           closeModal();
@@ -104,14 +129,16 @@ import "./style.css";
       } else if (action.includes("delete")) {
         // Open confirm dialogue for delete icons
         if (action === "delete-task") {
-          const pindex = parseInt(elem.parentElement.getAttribute("data-project"));
+          const pindex = parseInt(
+            elem.parentElement.getAttribute("data-project")
+          );
           const tindex = parseInt(elem.parentElement.getAttribute("data-task"));
           openConfirmDialogue({ action, pindex, tindex });
         } else {
           const index =
             parseInt(elem.parentElement.getAttribute("data-project")) ||
             parseInt(elem.parentElement.getAttribute("data-note"));
-            openConfirmDialogue({ action, index });
+          openConfirmDialogue({ action, index });
         }
       } else if (action.includes("view")) {
         if (action === "view-task") {
@@ -163,14 +190,14 @@ import "./style.css";
             index,
             title: projectsHandler.getNote(index).title,
             note: projectsHandler.getNote(index).note,
-          })
+          });
         }
       } else if (action === "reset-data") {
         pubSub.publish("resetDataActionConfirmed");
       }
     }
   }
-})()
+})();
 
 const projectsHandler = (function () {
   let projects = [],

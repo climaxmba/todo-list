@@ -23,15 +23,26 @@ const Storage = (function () {
       },
     ],
   };
+  let darkThemeOn = JSON.parse(localStorage.getItem("darkThemeOn"));
   
   pubSub.subscribe("dataChanged", saveChanges);
   pubSub.subscribe("resetDataActionConfirmed", clearData);
+  pubSub.subscribe("themeChoiceChanged", saveThemeChoice)
 
   if (!localStorage.getItem("hasVisitedSiteBefore")) {
     localStorage.setItem("hasVisitedSiteBefore", "true");
 
     // Welcome user
     console.log("Welcome!");
+  }
+
+  function userThemeDark() {
+    return darkThemeOn;
+  }
+
+  function saveThemeChoice(isDarkTheme) {
+    darkThemeOn = isDarkTheme;
+    localStorage.setItem("darkThemeOn", JSON.stringify(darkThemeOn));
   }
 
   function saveChanges(data) {
@@ -101,7 +112,7 @@ const Storage = (function () {
     return { projects, notes };
   }
 
-  return { getData };
+  return { getData, userThemeDark };
 })();
 
 export default Storage;
