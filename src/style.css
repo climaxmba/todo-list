@@ -20,8 +20,6 @@ html {
     --prty-medium: #fff19f;
     --prty-low: #cbffce;
     --bgdark: royalblue;
-}
-body[data-theme-dark="false"] {
     --bglight: white;
     --fglight: white;
     --fgdark: black;
@@ -392,7 +390,8 @@ button:disabled {
 body[data-theme-dark="true"] {
     --bglight: #3d3d3d;
     --fglight: black;
-    --fgdark: #e0e0e0;
+    --fgdark: #e6e6e6;
+    --shadow: 0px 1px 5px 0px #0000009f;
 }
 body[data-theme-dark="true"] #home-page h2:first-child,
 body[data-theme-dark="true"] #more-page h2 {
