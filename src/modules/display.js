@@ -153,25 +153,22 @@ function swithTab(e) {
 }
 
 function invokeAction(e, elem) {
-  if (e.target !== e.currentTarget) {
-    if (elem.id === "close-modal") {
-      closeModal();
-    } else if (elem.id === "reset-btn") {
-      openConfirmDialogue({ action: "reset" });
-    }else if (elem.id === "cancel-btn") {
-      closeModal();
-    } else if (elem.getAttribute("data-action-type") === "new-task") {
-      const action = elem.getAttribute("data-action-type");
-      const pindex = parseInt(elem.getAttribute("data-project"));
-      openDialogue({ action, pindex });
-    }
+  if (elem.id === "close-modal") {
+    closeModal();
+  } else if (elem.id === "reset-btn") {
+    openConfirmDialogue({ action: "reset" });
+  } else if (elem.id === "cancel-btn") {
+    closeModal();
+  } else if (elem.getAttribute("data-action-type") === "new-task") {
+    const action = elem.getAttribute("data-action-type");
+    const pindex = parseInt(elem.getAttribute("data-project"));
+    openDialogue({ action, pindex });
   } else if (elem === createBtn) {
     const action = `new-${createBtn.getAttribute("data-dialogue")}`;
     openDialogue({ action });
   } else if (elem === modal) {
     closeModal();
-  }
-  if (elem === menuIcon) {
+  } else if (elem === menuIcon) {
     toggleMenu();
   }
 
