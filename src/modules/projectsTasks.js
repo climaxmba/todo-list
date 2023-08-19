@@ -49,10 +49,4 @@ class Note {
   }
 }
 
-class CheckList {
-  constructor(listTxt) {
-    this.listTxt = listTxt;
-  }
-}
-
-export { Project, Task, Note, CheckList };
+export { Project, Task, Note };
