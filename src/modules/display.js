@@ -326,7 +326,7 @@ function renderData(data) {
 
   for (let i = 0; i < projects.length; i++) {
     // Today's tasks
-    if (projects[i].getTodaysTasks()[0]) {
+    if (projects[i].getTodaysTasks().length) {
       const elem = document.createElement("div"),
         tasks = projects[i].sortedTasks;
       elem.innerHTML = `<div class="project-name-contr" data-project="${i}">
@@ -353,7 +353,7 @@ function renderData(data) {
     }
 
     // This week's tasks
-    if (projects[i].getThisWeeksTasks()[0]) {
+    if (projects[i].getThisWeeksTasks().length) {
       const elem = document.createElement("li");
       elem.className = "flex-list-item";
       elem.setAttribute("data-project", i.toString());
